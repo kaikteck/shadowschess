@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+
+{% block title %}Início - In the Shadows{% endblock %}
+
+{% block content %}
+<div class="hero-section">
+    <div class="hero-content">
+        <h1 class="hero-title">Estratégia In the Shadows</h1>
+        <p class="hero-subtitle">Domine a arte da confusão estratégica</p>
+        
+        <div class="strategy-explanation">
+            <h3><i class="fas fa-eye-slash"></i> O Conceito</h3>
+            <p>
+                "In the Shadows" é uma metodologia revolucionária que transforma a previsibilidade em uma arma. 
+                A estratégia consiste em executar jogadas conhecidas apenas parcialmente, criando uma ilusão 
+                de familiaridade para o oponente.
+            </p>
+            
+            <div class="concept-cards">
+                <div class="concept-card">
+                    <i class="fas fa-mask"></i>
+                    <h4>Distração Calculada</h4>
+                    <p>Use aberturas e defesas conhecidas para criar uma falsa sensação de segurança</p>
+                </div>
+                
+                <div class="concept-card">
+                    <i class="fas fa-chess-knight"></i>
+                    <h4>Peça nas Sombras</h4>
+                    <p>Mantenha uma peça estratégica despercebida, preparando o golpe decisivo</p>
+                </div>
+                
+                <div class="concept-card">
+                    <i class="fas fa-bolt"></i>
+                    <h4>Golpe Final</h4>
+                    <p>Execute o movimento vencedor com a peça que permaneceu invisível</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="cta-section">
+            <a href="{{ url_for('teoria') }}" class="btn btn-primary">
+                <i class="fas fa-book"></i>
+                Explorar Teoria
+            </a>
+            <a href="{{ url_for('exemplos') }}" class="btn btn-secondary">
+                <i class="fas fa-lightbulb"></i>
+                Ver Exemplos
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="features-section">
+    <h2>Recursos do Laboratório</h2>
+    <div class="features-grid">
+        <div class="feature-item">
+            <i class="fas fa-scroll"></i>
+            <h3>Teoria Editável</h3>
+            <p>Desenvolva e refine seus conceitos estratégicos</p>
+        </div>
+        
+        <div class="feature-item">
+            <i class="fas fa-database"></i>
+            <h3>Banco de Exemplos</h3>
+            <p>Registre situações práticas e golpes executados</p>
+        </div>
+        
+        <div class="feature-item">
+            <i class="fas fa-chess-board"></i>
+            <h3>Tabuleiro Interativo</h3>
+            <p>Pratique e visualize suas estratégias</p>
+        </div>
+        
+        <div class="feature-item">
+            <i class="fas fa-graduation-cap"></i>
+            <h3>Fundamentos</h3>
+            <p>Aprenda conceitos clássicos e coordenadas</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

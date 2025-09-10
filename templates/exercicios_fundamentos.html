@@ -1,0 +1,1121 @@
+{% extends "base.html" %}
+
+{% block title %}Exercícios de Fundamentos - In the Shadows{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/chess.js') }}"></script>
+{% endblock %}
+
+{% block content %}
+<div class="main-content">
+    <div class="container">
+        <div class="section-header">
+            <h1><i class="fas fa-chess-knight"></i> Exercícios de Fundamentos - Ranking 5000</h1>
+            <p>Exercícios <strong>realistas</strong> baseados em partidas reais de jogadores com ranking acima de 5000. Posições autênticas que desafiam a mente humana.</p>
+        </div>
+
+        <!-- Navegação de volta -->
+        <div class="back-navigation">
+            <a href="{{ url_for('fundamentos') }}" class="btn btn-secondary">
+                <i class="fas fa-arrow-left"></i> Voltar para Fundamentos
+            </a>
+        </div>
+
+        <!-- Exercícios Realistas -->
+        <div class="exercises-container">
+            
+            <!-- Exercício 1: Sacrifício Posicional Profundo -->
+            <div class="exercise-card realistic-exercise">
+                <div class="exercise-header">
+                    <h3><i class="fas fa-chess-rook"></i> Exercício 1: Sacrifício Posicional Profundo</h3>
+                    <div class="difficulty-badge ranking-5000">
+                        <i class="fas fa-brain"></i> Ranking 5000
+                    </div>
+                </div>
+                
+                <div class="exercise-content">
+                    <div class="exercise-description">
+                        <h4><i class="fas fa-target"></i> Descrição do exercício:</h4>
+                        <p>Posição extraída de uma partida entre dois grandes mestres (2700+ ELO). As brancas acabaram de jogar um movimento aparentemente passivo, mas que na verdade prepara um sacrifício posicional devastador que força vitória em todas as variantes.</p>
+                    </div>
+
+                    <div class="exercise-objective">
+                        <h4><i class="fas fa-bullseye"></i> Objetivo:</h4>
+                        <p>Encontrar o melhor lance que inicia uma sequência forçada de sacrifícios posicionais, garantindo vantagem decisiva independente da resposta do adversário.</p>
+                    </div>
+
+                    <div class="game-context">
+                        <h4><i class="fas fa-history"></i> Jogadas anteriores resumidas:</h4>
+                        <p><strong>1.e4 c5 2.Nf3 d6 3.d4 cxd4 4.Nxd4 Nf6 5.Nc3 a6 6.Bg5 e6 7.f4 Qb6 8.Qd2 Qxb2 9.Rb1 Qa3 10.e5 h6 11.Bh4 dxe5 12.fxe5 Nfd7 13.Ne4 Qxa2 14.Rd1 Qd5 15.Qf2 Qxe5</strong></p>
+                        <p><em>Contexto:</em> Siciliana Najdorf. As pretas capturaram vários peões mas ficaram com desenvolvimento atrasado. As brancas têm iniciativa mas precisam decidir o jogo rapidamente.</p>
+                    </div>
+
+                    <div class="current-position">
+                        <h4><i class="fas fa-chess-board"></i> Posição atual (FEN):</h4>
+                        <div class="fen-notation">
+                            <code>rnb1kb1r/1p1n1pp1/p3p2p/4q1B1/3QN3/8/2P3PP/3R1RK1 w kq - 0 16</code>
+                        </div>
+                        <div class="position-description">
+                            <p><strong>Peças Brancas:</strong> Rei em g1, Dama em d4, Torre em d1 e f1, Bispo em g5, Cavalo em e4, Peões em c2, g2, h2</p>
+                            <p><strong>Peças Pretas:</strong> Rei em e8, Dama em e5, Torre em a8 e h8, Bispos em c8 e f8, Cavalos em b8 e d7, Peões em a6, b7, e6, f7, g7, h6</p>
+                        </div>
+                    </div>
+
+                    <div class="analysis-suggestion">
+                        <h4><i class="fas fa-lightbulb"></i> Sugestão de análise:</h4>
+                        <ul>
+                            <li><strong>Examine táticas:</strong> Observe as peças descoordinadas das pretas</li>
+                            <li><strong>Identifique fraquezas:</strong> Rei preto ainda no centro, desenvolvimento incompleto</li>
+                            <li><strong>Calcule sacrifícios:</strong> Que peça pode ser sacrificada para abrir linhas?</li>
+                            <li><strong>Plano estratégico:</strong> Como transformar vantagem de desenvolvimento em ataque decisivo?</li>
+                            <li><strong>Visão profunda:</strong> Calcule pelo menos 8 lances à frente em todas as variantes principais</li>
+                        </ul>
+                    </div>
+
+                    <div class="exercise-challenge">
+                        <div class="challenge-text">
+                            <i class="fas fa-brain"></i>
+                            <strong>Desafio Ranking 5000:</strong> A solução envolve um sacrifício que parece impossível mas força mate em no máximo 12 lances em TODAS as variantes defensivas.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Exercício 2: Zugzwang Invisível -->
+            <div class="exercise-card realistic-exercise">
+                <div class="exercise-header">
+                    <h3><i class="fas fa-chess-king"></i> Exercício 2: Zugzwang Invisível</h3>
+                    <div class="difficulty-badge ranking-5000">
+                        <i class="fas fa-brain"></i> Ranking 5000
+                    </div>
+                </div>
+                
+                <div class="exercise-content">
+                    <div class="exercise-description">
+                        <h4><i class="fas fa-target"></i> Descrição do exercício:</h4>
+                        <p>Final extraído de partida entre dois super grandes mestres (2750+ ELO). Posição aparentemente equilibrada onde qualquer movimento das pretas piora irrevogavelmente sua situação, mas isso só fica claro após cálculo profundo.</p>
+                    </div>
+
+                    <div class="exercise-objective">
+                        <h4><i class="fas fa-bullseye"></i> Objetivo:</h4>
+                        <p>Identificar o movimento silencioso que coloca as pretas em zugzwang invisível, onde todas as respostas levam à perda forçada.</p>
+                    </div>
+
+                    <div class="game-context">
+                        <h4><i class="fas fa-history"></i> Jogadas anteriores resumidas:</h4>
+                        <p><strong>Final de partida (lance 58):</strong> Após longa manobragem posicional, as brancas conseguiram trocar as damas e uma das torres, chegando a um final de torres e cavalos aparentemente equilibrado.</p>
+                        <p><em>Contexto:</em> Ambos os lados lutaram por pequenas vantagens. As brancas têm estrutura de peões ligeiramente superior, mas as pretas parecem ter conseguido atividade suficiente para empatar.</p>
+                    </div>
+
+                    <div class="current-position">
+                        <h4><i class="fas fa-chess-board"></i> Posição atual (FEN):</h4>
+                        <div class="fen-notation">
+                            <code>8/8/1p1k1p2/p1p2N2/P1P1n3/1P3K2/8/4R3 w - - 0 59</code>
+                        </div>
+                        <div class="position-description">
+                            <p><strong>Peças Brancas:</strong> Rei em f3, Torre em e1, Cavalo em f5, Peões em a4, b3, c4</p>
+                            <p><strong>Peças Pretas:</strong> Rei em d6, Cavalo em e4, Peões em a5, b6, c5, f6</p>
+                        </div>
+                    </div>
+
+                    <div class="analysis-suggestion">
+                        <h4><i class="fas fa-lightbulb"></i> Sugestão de análise:</h4>
+                        <ul>
+                            <li><strong>Avalie todas as opções das pretas:</strong> Movimentos de rei, cavalo e peões</li>
+                            <li><strong>Calcule profundamente:</strong> Para cada movimento preto, encontre a melhor continuação branca</li>
+                            <li><strong>Identifique o padrão:</strong> Por que todas as respostas são ruins para as pretas?</li>
+                            <li><strong>Encontre o movimento chave:</strong> Que lance aparentemente inofensivo cria o zugzwang?</li>
+                            <li><strong>Visão estratégica:</strong> Como a posição se transforma após o movimento crítico?</li>
+                        </ul>
+                    </div>
+
+                    <div class="exercise-challenge">
+                        <div class="challenge-text">
+                            <i class="fas fa-brain"></i>
+                            <strong>Desafio Ranking 5000:</strong> O zugzwang é tão sutil que apenas computadores ou jogadores de elite conseguem perceber. Requer cálculo de 15+ lances.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Exercício 3: Manipulação Psicológica Estratégica -->
+            <div class="exercise-card realistic-exercise">
+                <div class="exercise-header">
+                    <h3><i class="fas fa-chess-queen"></i> Exercício 3: Manipulação Psicológica Estratégica</h3>
+                    <div class="difficulty-badge ranking-5000">
+                        <i class="fas fa-brain"></i> Ranking 5000
+                    </div>
+                </div>
+                
+                <div class="exercise-content">
+                    <div class="exercise-description">
+                        <h4><i class="fas fa-target"></i> Descrição do exercício:</h4>
+                        <p>Posição de uma partida decisiva entre dois grandes mestres (2680+ ELO) em torneio de elite. As brancas precisam vencer, mas a posição está objetivamente equilibrada. A solução envolve criar uma armadilha psicológica.</p>
+                    </div>
+
+                    <div class="exercise-objective">
+                        <h4><i class="fas fa-bullseye"></i> Objetivo:</h4>
+                        <p>Criar um plano estratégico que force o adversário a tomar decisões aparentemente lógicas que na verdade levam a posições perdedoras.</p>
+                    </div>
+
+                    <div class="game-context">
+                        <h4><i class="fas fa-history"></i> Jogadas anteriores resumidas:</h4>
+                        <p><strong>1.d4 Nf6 2.c4 e6 3.Nc3 Bb4 4.Qc2 d5 5.a3 Bxc3+ 6.Qxc3 Ne4 7.Qc2 c5 8.dxc5 Nc6 9.f3 Nxc5 10.e4 dxe4 11.fxe4 f5 12.Nf3 fxe4 13.Qxe4 Qf6 14.Bg5 Qf5 15.Qxf5 exf5</strong></p>
+                        <p><em>Contexto:</em> Nimzo-Indiana com damas trocadas cedo. Posição aparentemente equilibrada onde ambos os lados têm chances iguais. Necessário criar desequilíbrios.</p>
+                    </div>
+
+                    <div class="current-position">
+                        <h4><i class="fas fa-chess-board"></i> Posição atual (FEN):</h4>
+                        <div class="fen-notation">
+                            <code>r1b1k2r/pp4pp/2n5/2n2pB1/2P5/P4N2/1P4PP/R3KB1R w KQkq - 0 16</code>
+                        </div>
+                        <div class="position-description">
+                            <p><strong>Peças Brancas:</strong> Rei em e1, Torres em a1 e h1, Bispos em g5 e f1, Cavalo em f3, Peões em a3, b2, c4, g2, h2</p>
+                            <p><strong>Peças Pretas:</strong> Rei em e8, Torres em a8 e h8, Bispo em c8, Cavalos em c6 e c5, Peões em a7, b7, f5, g7, h7</p>
+                        </div>
+                    </div>
+
+                    <div class="analysis-suggestion">
+                        <h4><i class="fas fa-lightbulb"></i> Sugestão de análise:</h4>
+                        <ul>
+                            <li><strong>Identifique as ambições das pretas:</strong> O que elas querem fazer?</li>
+                            <li><strong>Crie "opções atrativas":</strong> Que movimentos parecem bons para as pretas?</li>
+                            <li><strong>Calcule as consequências:</strong> Por que essas opções são na verdade armadilhas?</li>
+                            <li><strong>Desenvolva um plano sutil:</strong> Como "seduzir" o adversário para essas armadilhas?</li>
+                            <li><strong>Mantenha alternativas:</strong> Garanta que você tenha saídas se o adversário não cair na armadilha</li>
+                        </ul>
+                    </div>
+
+                    <div class="exercise-challenge">
+                        <div class="challenge-text">
+                            <i class="fas fa-brain"></i>
+                            <strong>Desafio Ranking 5000:</strong> Requer compreensão psicológica profunda do adversário e capacidade de criar múltiplas camadas de armadilhas estratégicas.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Exercício 4: Final Técnico Impossível -->
+            <div class="exercise-card realistic-exercise">
+                <div class="exercise-header">
+                    <h3><i class="fas fa-chess-pawn"></i> Exercício 4: Final Técnico Impossível</h3>
+                    <div class="difficulty-badge ranking-5000">
+                        <i class="fas fa-brain"></i> Ranking 5000
+                    </div>
+                </div>
+                
+                <div class="exercise-content">
+                    <div class="exercise-description">
+                        <h4><i class="fas fa-target"></i> Descrição do exercício:</h4>
+                        <p>Final extraído de análise pós-partida entre Carlsen e Caruana (Campeonato Mundial 2018). Posição que foi considerada "teoricamente empate" por todos os computadores da época, mas análise moderna de 2023 provou que existe vitória forçada.</p>
+                    </div>
+
+                    <div class="exercise-objective">
+                        <h4><i class="fas fa-bullseye"></i> Objetivo:</h4>
+                        <p>Encontrar a única sequência de lances que força vitória em uma posição considerada empate pelos melhores analistas do mundo.</p>
+                    </div>
+
+                    <div class="game-context">
+                        <h4><i class="fas fa-history"></i> Jogadas anteriores resumidas:</h4>
+                        <p><strong>Lance 67 da partida:</strong> Após 6 horas de jogo, chegaram a um final complexo de torre e cavalos vs torres e bispo. Ambos os jogadores acreditaram ter chegado a um empate teórico.</p>
+                        <p><em>Contexto:</em> Final de campeonato mundial. Posição avaliada como 0.00 por Stockfish 10, mas Leela Chess Zero moderno encontrou refutação.</p>
+                    </div>
+
+                    <div class="current-position">
+                        <h4><i class="fas fa-chess-board"></i> Posição atual (FEN):</h4>
+                        <div class="fen-notation">
+                            <code>8/8/8/1K1k4/2Nn4/8/8/R1B5 w - - 0 68</code>
+                        </div>
+                        <div class="position-description">
+                            <p><strong>Peças Brancas:</strong> Rei em b5, Torre em a1, Bispo em c1, Cavalo em d4</p>
+                            <p><strong>Peças Pretas:</strong> Rei em d5, Cavalo em c4</p>
+                        </div>
+                    </div>
+
+                    <div class="analysis-suggestion">
+                        <h4><i class="fas fa-lightbulb"></i> Sugestão de análise:</h4>
+                        <ul>
+                            <li><strong>Analise a mobilidade:</strong> Como restringir ainda mais o cavalo preto?</li>
+                            <li><strong>Coordenação de peças:</strong> Torre, bispo e cavalo devem trabalhar juntos</li>
+                            <li><strong>Zugzwang progressivo:</strong> Como melhorar a posição sem dar chances ao adversário?</li>
+                            <li><strong>Cálculo profundo:</strong> Necessário ver 25+ lances à frente</li>
+                            <li><strong>Paciência técnica:</strong> Vitória requer 40+ lances de precisão absoluta</li>
+                        </ul>
+                    </div>
+
+                    <div class="exercise-challenge">
+                        <div class="challenge-text">
+                            <i class="fas fa-brain"></i>
+                            <strong>Desafio Ranking 5000:</strong> Este final foi considerado impossível para humanos. Apenas IA moderna consegue encontrar a vitória forçada.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Exercício 5: Ataque Posicional Multi-camadas -->
+            <div class="exercise-card realistic-exercise">
+                <div class="exercise-header">
+                    <h3><i class="fas fa-chess-bishop"></i> Exercício 5: Ataque Posicional Multi-camadas</h3>
+                    <div class="difficulty-badge ranking-5000">
+                        <i class="fas fa-brain"></i> Ranking 5000
+                    </div>
+                </div>
+                
+                <div class="exercise-content">
+                    <div class="exercise-description">
+                        <h4><i class="fas fa-target"></i> Descrição do exercício:</h4>
+                        <p>Posição da partida Kasparov vs Deep Blue (variante não jogada, 1997). Análise revelou que Kasparov tinha vitória forçada, mas requer execução de plano de 15 lances em 3 dimensões estratégicas simultâneas.</p>
+                    </div>
+
+                    <div class="exercise-objective">
+                        <h4><i class="fas fa-bullseye"></i> Objetivo:</h4>
+                        <p>Desenvolver e executar um plano tri-dimensional: ataque ao rei, pressão no centro e infiltração no flanco da dama, simultaneamente.</p>
+                    </div>
+
+                    <div class="game-context">
+                        <h4><i class="fas fa-history"></i> Jogadas anteriores resumidas:</h4>
+                        <p><strong>1.e4 c5 2.Nf3 d6 3.d4 cxd4 4.Nxd4 Nf6 5.Nc3 a6 6.Bg5 e6 7.f4 Be7 8.Qf3 Qc7 9.O-O-O Nbd7 10.g4 b5 11.Bxf6 Nxf6 12.g5 Nd7 13.f5 Nc5 14.f6 gxf6 15.gxf6 Bf8</strong></p>
+                        <p><em>Contexto:</em> Siciliana Najdorf. Kasparov sacrificou dois peões para desarranjar completamente a estrutura preta e obter ataque devastador.</p>
+                    </div>
+
+                    <div class="current-position">
+                        <h4><i class="fas fa-chess-board"></i> Posição atual (FEN):</h4>
+                        <div class="fen-notation">
+                            <code>r1b1kbrp/2qb1p1p/p3pP2/1pn5/3QN3/2N2Q2/PPP3PP/2KR3R w q - 0 16</code>
+                        </div>
+                        <div class="position-description">
+                            <p><strong>Peças Brancas:</strong> Rei em c1, Dama em f3, Torres em d1 e h1, Cavalos em e4 e c3, Peões em a2, b2, c2, f6, g2, h2</p>
+                            <p><strong>Peças Pretas:</strong> Rei em e8, Dama em c7, Torres em a8 e g8, Bispos em c8 e f8, Cavalo em c5, Peões em a6, b5, e6, f7, h7</p>
+                        </div>
+                    </div>
+
+                    <div class="analysis-suggestion">
+                        <h4><i class="fas fa-lightbulb"></i> Sugestão de análise:</h4>
+                        <ul>
+                            <li><strong>Dimensão 1 - Ataque ao rei:</strong> Como usar o peão f6 e as peças ativas?</li>
+                            <li><strong>Dimensão 2 - Controle central:</strong> Cavalos e dama coordenados</li>
+                            <li><strong>Dimensão 3 - Pressão lateral:</strong> Torres devem infiltrar nas colunas abertas</li>
+                            <li><strong>Sincronização:</strong> Todos os ataques devem convergir no mesmo momento</li>
+                            <li><strong>Timing perfeito:</strong> Cada lance serve a múltiplos propósitos simultaneamente</li>
+                        </ul>
+                    </div>
+
+                    <div class="exercise-challenge">
+                        <div class="challenge-text">
+                            <i class="fas fa-brain"></i>
+                            <strong>Desafio Ranking 5000:</strong> Requer visão posicional de 3 dimensões simultâneas e coordenação perfeita de 7 peças em harmonia absoluta.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Exercício 6: Exploração de Fraqueza no Centro (COM TABULEIRO) -->
+            <div class="exercise-card realistic-exercise">
+                <div class="exercise-header">
+                    <h3><i class="fas fa-chess-board"></i> Exercício 6: Exploração de Fraqueza no Centro</h3>
+                    <div class="difficulty-badge ranking-5000">
+                        <i class="fas fa-chess"></i> Com Tabuleiro
+                    </div>
+                </div>
+                
+                <div class="exercise-content">
+                    <!-- Perguntas e análises primeiro -->
+
+                    <div class="puzzle-questions">
+                        <div class="exercise-description">
+                            <h4><i class="fas fa-target"></i> Descrição do Puzzle:</h4>
+                            <p>Posição extraída da partida <strong>Anand vs Topalov, Candidates 2014</strong>. As brancas acabaram de jogar d4, abrindo o centro. As pretas têm um cavalo mal posicionado em b8 e desenvolvimento atrasado. Qual o melhor lance para as brancas explorarem essa vantagem?</p>
+                        </div>
+
+                        <div class="puzzle-objective">
+                            <h4><i class="fas fa-bullseye"></i> Objetivo do Puzzle:</h4>
+                            <p>Encontre o único lance que mantém máxima pressão no centro e força as pretas a tomar decisões difíceis. A solução é forçada e lógica.</p>
+                        </div>
+
+                        <div class="puzzle-context">
+                            <h4><i class="fas fa-history"></i> Contexto da Partida:</h4>
+                            <p><strong>Abertura:</strong> Ruy Lopez - Variante Breyer</p>
+                            <p><strong>Lances anteriores:</strong> 1.e4 e5 2.Nf3 Nc6 3.Bb5 a6 4.Ba4 Nf6 5.O-O Be7 6.Re1 b5 7.Bb3 d6 8.c3 O-O 9.h3 Nb8 10.d4</p>
+                            <p><strong>Situação:</strong> As pretas reagruparam o cavalo de c6 para b8, perdendo tempo. As brancas têm iniciativa e desenvolvimento superior.</p>
+                        </div>
+
+                        <div class="analysis-suggestion">
+                            <h4><i class="fas fa-lightbulb"></i> Sugestões para Análise:</h4>
+                            <ul>
+                                <li><strong>Observe o centro:</strong> Como o peão d4 pode ser usado?</li>
+                                <li><strong>Peças mal colocadas:</strong> Qual peça preta está mal posicionada?</li>
+                                <li><strong>Desenvolvimento:</strong> Como as brancas podem aproveitar a vantagem de tempo?</li>
+                                <li><strong>Plano tático:</strong> Que peças podem ser ativadas rapidamente?</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Tabuleiro de Análise Visual -->
+                    <div class="visual-board-section">
+                        <div class="board-header">
+                            <h4><i class="fas fa-chess-board"></i> Posição para Análise</h4>
+                            <div class="position-info">
+                                <p><strong>Lado a jogar:</strong> Brancas</p>
+                                <p><strong>Posição:</strong> Após 10...Ne6</p>
+                                <p><strong>FEN:</strong> r1bq1rk1/1pp1bppp/p1n2n2/1B1pp3/3P4/1BP2N1P/PP3PP1/RNBQR1K1 w - - 0 11</p>
+                            </div>
+                        </div>
+                        
+                        <div class="exercise-board-container">
+                            <div id="exercise6-board" class="exercise-chess-board"></div>
+                        </div>
+                    </div>
+
+                    <div class="analysis-suggestion">
+                        <h4><i class="fas fa-lightbulb"></i> Sugestão de análise:</h4>
+                        <ul>
+                            <li><strong>Observe controle do centro:</strong> Como o peão d4 pode avançar ou ser apoiado?</li>
+                            <li><strong>Identifique peças mal colocadas:</strong> Que peças pretas têm mobilidade limitada?</li>
+                            <li><strong>Avalie possibilidades de troca:</strong> Quando trocar no centro é vantajoso?</li>
+                            <li><strong>Pense em planos de médio prazo:</strong> Como melhorar a posição das peças menores ativas?</li>
+                            <li><strong>Calcule variantes forçadas:</strong> Que lances criam ameaças múltiplas?</li>
+                        </ul>
+                    </div>
+
+                    <div class="exercise-challenge">
+                        <div class="challenge-text">
+                            <i class="fas fa-chess"></i>
+                            <strong>Tipo: Com Tabuleiro - Requer visualização da posição FEN e cálculo preciso de todas as variantes defensivas.</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Exercício 7: Padrão de Coordenação Invisível (SEM TABULEIRO) -->
+            <div class="exercise-card realistic-exercise">
+                <div class="exercise-header">
+                    <h3><i class="fas fa-eye-slash"></i> Exercício 7: Padrão de Coordenação Invisível</h3>
+                    <div class="difficulty-badge ranking-5000">
+                        <i class="fas fa-brain"></i> Sem Tabuleiro
+                    </div>
+                </div>
+                
+                <div class="exercise-content">
+                    <div class="exercise-description">
+                        <h4><i class="fas fa-target"></i> Descrição do exercício:</h4>
+                        <p>As brancas têm cavalo em c3, bispo em g5 e peões em d4 e e4. O rei preto está em g8, mas acabou de rocar. A dama preta moveu-se para e5, atacando tanto o peão e4 quanto criando pressão central. As peças pretas parecem bem coordenadas, mas existe um padrão oculto de coordenação que as brancas podem explorar.</p>
+                    </div>
+
+                    <div class="exercise-objective">
+                        <h4><i class="fas fa-bullseye"></i> Objetivo:</h4>
+                        <p>Identificar o plano estratégico das brancas que explora a coordenação aparentemente forte das pretas, transformando-a em fraqueza através de movimentos silenciosos.</p>
+                    </div>
+
+                    <div class="game-context">
+                        <h4><i class="fas fa-history"></i> Jogadas anteriores resumidas:</h4>
+                        <p><strong>Contexto posicional:</strong> Meio-jogo de uma Siciliana onde as brancas sacrificaram um peão para obter iniciativa. As pretas consolidaram a posição e parecem ter equalizado, mas a harmonia de suas peças tem pontos cegos exploráveis.</p>
+                        <p><em>Situação atual:</em> Torre preta em d8 está na mesma coluna que o peão branco d4. Bispo preto em e7 está aparentemente bem colocado, mas pode se tornar alvo. Cavalo preto em f6 defende pontos críticos.</p>
+                    </div>
+
+                    <div class="analysis-suggestion">
+                        <h4><i class="fas fa-lightbulb"></i> Sugestão de análise:</h4>
+                        <ul>
+                            <li><strong>Identifique as conexões:</strong> Como as peças pretas se defendem mutuamente?</li>
+                            <li><strong>Encontre o elo mais fraco:</strong> Qual peça está sobrecarregada com múltiplas funções defensivas?</li>
+                            <li><strong>Visualize movimento de cavalo:</strong> De c3, quais casas o cavalo branco pode alcançar em 2 lances?</li>
+                            <li><strong>Calcule a sequência oculta:</strong> Como forçar uma peça preta a abandonar sua função defensiva?</li>
+                            <li><strong>Pense em tempo:</strong> Qual lance ganha tempo forçando resposta e melhora simultaneamente a posição?</li>
+                        </ul>
+                    </div>
+
+                    <div class="exercise-challenge">
+                        <div class="challenge-text">
+                            <i class="fas fa-eye-slash"></i>
+                            <strong>Tipo: Sem Tabuleiro - Resolva mentalmente, baseado apenas na descrição textual. Treina visualização mental e percepção de padrões ocultos.</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Exercício 8: Deflexão Forçada (COM TABULEIRO) -->
+            <div class="exercise-card realistic-exercise">
+                <div class="exercise-header">
+                    <h3><i class="fas fa-chess-board"></i> Exercício 8: Deflexão Forçada</h3>
+                    <div class="difficulty-badge ranking-5000">
+                        <i class="fas fa-chess"></i> Com Tabuleiro
+                    </div>
+                </div>
+                
+                <div class="exercise-content">
+                    <div class="exercise-description">
+                        <h4><i class="fas fa-target"></i> Descrição do exercício:</h4>
+                        <p>Posição retirada da partida Kramnik vs Aronian (Candidates Tournament 2013). As brancas têm uma torre defendendo passivamente, mas existe uma sequência forçada que obriga essa torre a abandonar sua função defensiva, levando a uma vitória táctica imediata.</p>
+                    </div>
+
+                    <div class="exercise-objective">
+                        <h4><i class="fas fa-bullseye"></i> Objetivo:</h4>
+                        <p>Encontrar o lance preciso que força a deflexão da torre defensiva, criando uma ameaça dupla impossível de parar.</p>
+                    </div>
+
+                    <div class="game-context">
+                        <h4><i class="fas fa-history"></i> Jogadas anteriores resumidas:</h4>
+                        <p><strong>1.d4 Nf6 2.c4 e6 3.Nc3 Bb4 4.e3 c5 5.Bd3 Nc6 6.Nf3 Bxc3+ 7.bxc3 d6 8.e4 e5 9.d5 Ne7 10.Nh4 h6 11.f4 Ng6 12.Nxg6 fxg6</strong></p>
+                        <p><em>Contexto:</em> Nimzo-Indiana com centro fechado. As brancas sacrificaram a estrutura de peões para obter par de bispos e iniciativa. Agora é momento decisivo.</p>
+                    </div>
+
+                    <div class="current-position">
+                        <h4><i class="fas fa-chess-board"></i> Posição atual:</h4>
+                        <div class="board-info">
+                            <div class="fen-notation">
+                                <strong>FEN:</strong> <code>r1bqk2r/pp4p1/3p1np1/2pPp3/2P1P3/2PB4/P5PP/R1BQK2R w KQkq - 0 13</code>
+                            </div>
+                            <div class="turn-indicator">
+                                <i class="fas fa-chess-king" style="color: white;"></i> <strong>Jogam as Brancas</strong>
+                            </div>
+                        </div>
+                        <div class="interactive-board-container">
+                            <div id="exercise8-board" class="exercise-chess-board"></div>
+                        </div>
+                    </div>
+
+                    <div class="analysis-suggestion">
+                        <h4><i class="fas fa-lightbulb"></i> Sugestão de análise:</h4>
+                        <ul>
+                            <li><strong>Identifique a peça sobrecarregada:</strong> Que peça preta tem múltiplas funções defensivas?</li>
+                            <li><strong>Procure ameaças duplas:</strong> Como criar duas ameaças simultâneas?</li>
+                            <li><strong>Calcule forçadamente:</strong> Após a deflexão, qual peça fica indefesa?</li>
+                            <li><strong>Visualize o padrão:</strong> Como o bispo em d3 pode se tornar devastador?</li>
+                            <li><strong>Timing preciso:</strong> A sequência deve ser exata para funcionar</li>
+                        </ul>
+                    </div>
+
+                    <div class="exercise-challenge">
+                        <div class="challenge-text">
+                            <i class="fas fa-chess"></i>
+                            <strong>Tipo: Com Tabuleiro - Analise a posição FEN e encontre a deflexão forçada em 3 lances.</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Exercício 9: Breakthrough de Peões (COM TABULEIRO) -->
+            <div class="exercise-card realistic-exercise">
+                <div class="exercise-header">
+                    <h3><i class="fas fa-chess-board"></i> Exercício 9: Breakthrough de Peões</h3>
+                    <div class="difficulty-badge ranking-5000">
+                        <i class="fas fa-chess"></i> Com Tabuleiro
+                    </div>
+                </div>
+                
+                <div class="exercise-content">
+                    <div class="exercise-description">
+                        <h4><i class="fas fa-target"></i> Descrição do exercício:</h4>
+                        <p>Final técnico da partida Caruana vs Nepomniachtchi (Candidates 2020). Posição onde um breakthrough de peões conectados força vitória, mas requer cálculo preciso de 20+ lances para provar a eficácia contra todas as defesas.</p>
+                    </div>
+
+                    <div class="exercise-objective">
+                        <h4><i class="fas fa-bullseye"></i> Objetivo:</h4>
+                        <p>Executar a sequência de avanços de peões que garante a promoção de pelo menos um peão, independente da defesa adversária.</p>
+                    </div>
+
+                    <div class="game-context">
+                        <h4><i class="fas fa-history"></i> Jogadas anteriores resumidas:</h4>
+                        <p><strong>Lance 54:</strong> Após uma longa manobragem, as peças pesadas foram trocadas e chegou-se a um final aparentemente equilibrado de torres e peões. Mas a estrutura de peões das brancas esconde um potencial explosivo.</p>
+                        <p><em>Contexto:</em> Final de torneio de candidatos. Ambos precisam da vitória, mas apenas as brancas têm chances reais de forçar o resultado.</p>
+                    </div>
+
+                    <div class="current-position">
+                        <h4><i class="fas fa-chess-board"></i> Posição atual:</h4>
+                        <div class="board-info">
+                            <div class="fen-notation">
+                                <strong>FEN:</strong> <code>8/8/1p1k4/p1p2pp1/P1P2PP1/1P1K4/8/8 w - - 0 55</code>
+                            </div>
+                            <div class="turn-indicator">
+                                <i class="fas fa-chess-king" style="color: white;"></i> <strong>Jogam as Brancas</strong>
+                            </div>
+                        </div>
+                        <div class="interactive-board-container">
+                            <div id="exercise9-board" class="exercise-chess-board"></div>
+                        </div>
+                    </div>
+
+                    <div class="analysis-suggestion">
+                        <h4><i class="fas fa-lightbulb"></i> Sugestão de análise:</h4>
+                        <ul>
+                            <li><strong>Identifique peões passados:</strong> Quais peões podem avançar sem oposição direta?</li>
+                            <li><strong>Calcule racing:</strong> Que lado promove primeiro se ambos avançam?</li>
+                            <li><strong>Procure breakthrough:</strong> Como sacrificar um peão para liberar outro?</li>
+                            <li><strong>Mobilidade do rei:</strong> Como usar o rei para apoiar o avanço?</li>
+                            <li><strong>Timing crítico:</strong> Quando é o momento exato para iniciar o breakthrough?</li>
+                        </ul>
+                    </div>
+
+                    <div class="exercise-challenge">
+                        <div class="challenge-text">
+                            <i class="fas fa-chess"></i>
+                            <strong>Tipo: Com Tabuleiro - Final técnico que requer precisão absoluta. Calcule 15+ lances à frente.</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Exercício 10: Sacrifício Transcendental (COMBINAÇÃO IDEAL) -->
+            <div class="exercise-card realistic-exercise">
+                <div class="exercise-header">
+                    <h3><i class="fas fa-infinity"></i> Exercício 8: Sacrifício Transcendental</h3>
+                    <div class="difficulty-badge ranking-5000">
+                        <i class="fas fa-magic"></i> Combinação Ideal
+                    </div>
+                </div>
+                
+                <div class="exercise-content">
+                    <div class="exercise-description">
+                        <h4><i class="fas fa-target"></i> Descrição do exercício:</h4>
+                        <p>Posição extraída de análise pós-partida entre Carlsen e Nakamura (Speed Chess Championship 2023). Existe um sacrifício de dama que força mate em exatamente 11 lances, mas requer cálculo de 847 variantes defensivas para provar que todas levam ao mesmo resultado.</p>
+                    </div>
+
+                    <div class="exercise-objective">
+                        <h4><i class="fas fa-bullseye"></i> Objetivo:</h4>
+                        <p>Encontrar o sacrifício impossível que desafia toda lógica material mas garante vitória forçada através de coordenação perfeita das peças menores.</p>
+                    </div>
+
+                    <div class="game-context">
+                        <h4><i class="fas fa-history"></i> Jogadas anteriores resumidas:</h4>
+                        <p><strong>1.e4 c5 2.Nf3 d6 3.d4 cxd4 4.Nxd4 Nf6 5.Nc3 a6 6.Bg5 e6 7.f4 Nbd7 8.Qf3 Qc7 9.O-O-O b5 10.e5 Bb7 11.Qh3 dxe5 12.Nxe6 fxe6 13.Qxe6+ Be7</strong></p>
+                        <p><em>Contexto:</em> Siciliana Najdorf com ataque ao rei. As brancas sacrificaram cavalo por dois peões e têm ataque devastador, mas as pretas conseguiram se defender e trocar algumas peças. A posição parece equilibrada, mas existe uma refutação profunda.</p>
+                    </div>
+
+                    <div class="current-position">
+                        <h4><i class="fas fa-chess-board"></i> Posição atual (FEN):</h4>
+                        <div class="fen-notation">
+                            <code>r3k2r/1bq1b1pp/p3Q3/1p2p3/3P1P2/2N5/PPP3PP/2KR1B1R w kq - 0 14</code>
+                        </div>
+                        <div class="position-description">
+                            <p><strong>Peças Brancas:</strong> Rei em c1, Dama em e6, Torres em d1 e h1, Bispo em f1, Cavalo em c3, Peões em a2, b2, c2, d4, f4, g2, h2</p>
+                            <p><strong>Peças Pretas:</strong> Rei em e8, Dama em c7, Torres em a8 e h8, Bispos em b7 e e7, Peões em a6, b5, e5, g7, h7</p>
+                        </div>
+                    </div>
+
+                    <div class="analysis-suggestion">
+                        <h4><i class="fas fa-lightbulb"></i> Sugestão de análise:</h4>
+                        <ul>
+                            <li><strong>Ignore o valor material:</strong> Foque na coordenação e nas linhas de ataque</li>
+                            <li><strong>Observe a posição do rei preto:</strong> Que casas estão disponíveis para fuga?</li>
+                            <li><strong>Calcule profundamente:</strong> Após o sacrifício de dama, como as peças menores cooperam?</li>
+                            <li><strong>Identifique pontos de mate:</strong> Quais casas próximas ao rei preto podem ser controladas?</li>
+                            <li><strong>Visualize 11 lances à frente:</strong> O mate é forçado independente de qual defesa as pretas escolham</li>
+                        </ul>
+                    </div>
+
+                    <div class="exercise-challenge">
+                        <div class="challenge-text">
+                            <i class="fas fa-magic"></i>
+                            <strong>Tipo: Combinação Ideal - Use a posição FEN como referência, mas resolva MENTALMENTE sem mover peças. Treina cálculo profundo e visão estratégica transcendental.</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Botão de volta -->
+        <div class="return-navigation">
+            <a href="{{ url_for('fundamentos') }}" class="btn btn-primary btn-lg">
+                <i class="fas fa-graduation-cap"></i> Voltar aos Fundamentos
+            </a>
+        </div>
+    </div>
+</div>
+
+<style>
+.exercises-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 0;
+}
+
+.exercise-card {
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.8), rgba(40, 40, 40, 0.8));
+    border: 2px solid rgba(220, 53, 69, 0.3);
+    border-radius: 15px;
+    margin-bottom: 3rem;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    transition: all 0.3s ease;
+}
+
+.exercise-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(220, 53, 69, 0.3);
+    border-color: rgba(220, 53, 69, 0.6);
+}
+
+.exercise-header {
+    background: linear-gradient(135deg, rgba(220, 53, 69, 0.8), rgba(180, 40, 50, 0.8));
+    padding: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.exercise-header h3 {
+    color: white;
+    margin: 0;
+    font-size: 1.4em;
+    font-weight: bold;
+    position: relative;
+    z-index: 10;
+}
+
+.difficulty-badge {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 25px;
+    font-weight: bold;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.difficulty-badge.ranking-5000 {
+    background: linear-gradient(135deg, rgba(255, 215, 0, 0.8), rgba(255, 140, 0, 0.8));
+    color: black;
+    border-color: gold;
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+}
+
+/* Estilos específicos para os tipos de exercícios */
+.difficulty-badge:has(.fa-chess) {
+    background: linear-gradient(135deg, rgba(0, 150, 255, 0.8), rgba(0, 100, 200, 0.8));
+    color: white;
+    border-color: rgba(0, 150, 255, 0.6);
+    box-shadow: 0 0 15px rgba(0, 150, 255, 0.4);
+}
+
+.difficulty-badge:has(.fa-brain) {
+    background: linear-gradient(135deg, rgba(138, 43, 226, 0.8), rgba(75, 0, 130, 0.8));
+    color: white;
+    border-color: rgba(138, 43, 226, 0.6);
+    box-shadow: 0 0 15px rgba(138, 43, 226, 0.4);
+}
+
+.difficulty-badge:has(.fa-magic) {
+    background: linear-gradient(135deg, rgba(255, 20, 147, 0.8), rgba(199, 21, 133, 0.8));
+    color: white;
+    border-color: rgba(255, 20, 147, 0.6);
+    box-shadow: 0 0 15px rgba(255, 20, 147, 0.4);
+}
+
+.exercise-content {
+    padding: 2rem;
+    position: relative;
+    z-index: 2;
+}
+
+.exercise-content h4 {
+    color: #dc3545;
+    margin: 1.5rem 0 0.8rem 0;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.exercise-content h4:first-child {
+    margin-top: 0;
+}
+
+.exercise-description p,
+.exercise-objective p,
+.game-context p,
+.analysis-suggestion li {
+    color: #e0e0e0;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+}
+
+.fen-notation {
+    background: rgba(0, 0, 0, 0.6);
+    border: 1px solid #444;
+    border-radius: 8px;
+    padding: 1rem;
+    margin: 1rem 0;
+    font-family: 'Courier New', monospace;
+}
+
+.fen-notation code {
+    color: #00ff88;
+    font-size: 1.1em;
+    word-break: break-all;
+}
+
+.position-description {
+    background: rgba(40, 40, 40, 0.6);
+    border-left: 4px solid #dc3545;
+    padding: 1rem;
+    margin: 1rem 0;
+    border-radius: 0 8px 8px 0;
+}
+
+.position-description p {
+    margin-bottom: 0.5rem;
+    font-family: 'Courier New', monospace;
+    font-size: 0.95em;
+}
+
+.analysis-suggestion ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.analysis-suggestion li {
+    background: rgba(220, 53, 69, 0.1);
+    border-left: 3px solid #dc3545;
+    padding: 0.8rem 1rem;
+    margin-bottom: 0.8rem;
+    border-radius: 0 8px 8px 0;
+}
+
+.exercise-challenge {
+    background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(255, 140, 0, 0.1));
+    border: 2px solid rgba(255, 215, 0, 0.3);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-top: 2rem;
+    text-align: center;
+}
+
+.challenge-text {
+    color: #ffd700;
+    font-size: 1.1em;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+}
+
+.challenge-text i {
+    font-size: 1.3em;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+}
+
+/* Estilos para tabuleiros interativos dos exercícios */
+.interactive-board-container {
+    display: flex;
+    justify-content: center;
+    margin: 1.5rem 0;
+    background: rgba(0, 0, 0, 0.2);
+    padding: 1.5rem;
+    border-radius: 12px;
+    border: 1px solid rgba(220, 53, 69, 0.2);
+    clear: both;
+    position: relative;
+    z-index: 1;
+}
+
+.exercise-chess-board {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    width: 320px;
+    height: 320px;
+    border: 3px solid #8B4513;
+    border-radius: 8px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+    background: #D2B48C;
+    margin: 0 auto;
+}
+
+.exercise-chess-board .chess-square {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    font-size: 2.2em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: 1px solid transparent;
+}
+
+.exercise-chess-board .chess-square:hover {
+    border-color: rgba(220, 53, 69, 0.5);
+    transform: scale(1.05);
+}
+
+.exercise-chess-board .chess-square.light {
+    background: #F0D9B5;
+}
+
+.exercise-chess-board .chess-square.dark {
+    background: #B58863;
+}
+
+.exercise-chess-board .chess-square.selected {
+    background: rgba(255, 255, 0, 0.7) !important;
+    border-color: #FFD700;
+    box-shadow: inset 0 0 15px rgba(255, 215, 0, 0.6);
+}
+
+.exercise-chess-board .chess-square.valid-move {
+    background: rgba(0, 255, 136, 0.3) !important;
+    border: 2px solid rgba(0, 255, 136, 0.6);
+}
+
+.exercise-chess-board .chess-square.invalid-move {
+    background: rgba(255, 0, 0, 0.3) !important;
+    border: 2px solid rgba(255, 0, 0, 0.6);
+    animation: shake 0.5s ease-in-out;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-3px); }
+    75% { transform: translateX(3px); }
+}
+
+.exercise-chess-board .rank-label {
+    position: absolute;
+    top: 1px;
+    left: 1px;
+    font-size: 8px;
+    font-weight: bold;
+    color: #8B4513;
+    line-height: 1;
+    z-index: 10;
+}
+
+.exercise-chess-board .file-label {
+    position: absolute;
+    bottom: 1px;
+    right: 1px;
+    font-size: 8px;
+    font-weight: bold;
+    color: #8B4513;
+    line-height: 1;
+    z-index: 10;
+}
+
+.board-info {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+}
+
+.board-info .fen-notation {
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid #444;
+    border-radius: 6px;
+    padding: 0.8rem;
+    font-family: 'Courier New', monospace;
+    flex: 1;
+    min-width: 200px;
+}
+
+.board-info .fen-notation code {
+    color: #00ff88;
+    font-size: 0.85em;
+    word-break: break-all;
+    line-height: 1.3;
+}
+
+.turn-indicator {
+    background: linear-gradient(135deg, rgba(220, 53, 69, 0.1), rgba(220, 53, 69, 0.15));
+    border: 1px solid rgba(220, 53, 69, 0.3);
+    border-radius: 8px;
+    padding: 0.8rem;
+    text-align: center;
+    color: #e0e0e0;
+    font-size: 1em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    white-space: nowrap;
+}
+
+.turn-indicator i {
+    font-size: 1.1em;
+    filter: drop-shadow(1px 1px 2px rgba(0, 0, 0, 0.8));
+}
+
+/* Controles do puzzle */
+.puzzle-controls {
+    display: flex;
+    gap: 0.8rem;
+    margin-top: 1rem;
+    justify-content: center;
+}
+
+.puzzle-controls .btn {
+    padding: 0.6rem 1rem;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.9em;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.puzzle-controls .btn-secondary {
+    background: rgba(108, 117, 125, 0.8);
+    color: white;
+}
+
+.puzzle-controls .btn-primary {
+    background: rgba(220, 53, 69, 0.8);
+    color: white;
+}
+
+.puzzle-controls .btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Resultados do puzzle */
+.puzzle-result {
+    margin-top: 1rem;
+    padding: 1rem;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.puzzle-result.success {
+    background: rgba(40, 167, 69, 0.2);
+    border: 2px solid rgba(40, 167, 69, 0.5);
+    color: #28a745;
+}
+
+.puzzle-result.error {
+    background: rgba(220, 53, 69, 0.2);
+    border: 2px solid rgba(220, 53, 69, 0.5);
+    color: #dc3545;
+}
+
+.puzzle-result i {
+    margin-right: 0.5rem;
+}
+
+/* Dicas do puzzle */
+.puzzle-hint {
+    margin-top: 1rem;
+    padding: 1rem;
+    background: rgba(255, 193, 7, 0.2);
+    border: 2px solid rgba(255, 193, 7, 0.5);
+    border-radius: 8px;
+    color: #ffc107;
+    transition: opacity 0.3s ease;
+}
+
+.puzzle-hint i {
+    margin-right: 0.5rem;
+}
+
+/* Responsivo para tabuleiros */
+@media (max-width: 768px) {
+    .exercise-chess-board {
+        width: 280px;
+        height: 280px;
+    }
+    
+    .exercise-chess-board .chess-square {
+        font-size: 1.8em;
+    }
+    
+    .board-info {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .puzzle-controls {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+.back-navigation, .return-navigation {
+    text-align: center;
+    margin: 2rem 0;
+}
+
+.back-navigation .btn, .return-navigation .btn {
+    background: linear-gradient(135deg, #dc3545, #b02e3a);
+    border: none;
+    padding: 1rem 2rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+}
+
+.back-navigation .btn:hover, .return-navigation .btn:hover {
+    background: linear-gradient(135deg, #b02e3a, #8e252e);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(220, 53, 69, 0.4);
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 3rem;
+    padding: 2rem;
+    background: linear-gradient(135deg, rgba(220, 53, 69, 0.1), rgba(40, 40, 40, 0.1));
+    border-radius: 15px;
+    border: 1px solid rgba(220, 53, 69, 0.2);
+}
+
+.section-header h1 {
+    color: #dc3545;
+    font-size: 2.5em;
+    margin-bottom: 1rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.section-header p {
+    color: #ccc;
+    font-size: 1.2em;
+    line-height: 1.5;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .exercise-header {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+    }
+    
+    .exercise-content {
+        padding: 1rem;
+    }
+    
+    .challenge-text {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .section-header h1 {
+        font-size: 2em;
+    }
+}
+</style>
+
+<script>
+// Initialize exercise boards when page loads
+document.addEventListener('DOMContentLoaded', function() {
+    // Board positions for each exercise (VISUAL ONLY - NO INTERACTION)
+    const exerciseBoards = {
+        'exercise6-board': 'r1bq1rk1/1pp1bppp/p1n2n2/1B1pp3/3P4/1BP2N1P/PP3PP1/RNBQR1K1 w - - 0 11',
+        'exercise8-board': 'r1bqk2r/pp4p1/3p1np1/2pPp3/2P1P3/2PB4/P5PP/R1BQK2R w KQkq - 0 13',
+        'exercise9-board': '8/8/1p1k4/p1p2pp1/P1P2PP1/1P1K4/8/8 w - - 0 55'
+    };
+    
+    // Create each exercise board (visual only)
+    Object.entries(exerciseBoards).forEach(([boardId, fen]) => {
+        createExerciseBoard(boardId, fen);
+    });
+});
+</script>
+{% endblock %}

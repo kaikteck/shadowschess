@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+
+{% block title %}Teoria - In the Shadows{% endblock %}
+
+{% block content %}
+<div class="theory-section">
+    <div class="section-header">
+        <h1><i class="fas fa-brain"></i> Teoria da Estratégia</h1>
+        <p>Desenvolva e refine os conceitos fundamentais da metodologia "In the Shadows"</p>
+    </div>
+
+    <div class="theory-content">
+        <div class="theory-principles">
+            <h2>Princípios Fundamentais</h2>
+            
+            <div class="principle-card">
+                <h3><i class="fas fa-theater-masks"></i> Abertura Ilusória</h3>
+                <p>
+                    Inicie com movimentos reconhecíveis que sugiram uma estratégia específica. 
+                    O objetivo é fazer o oponente acreditar que conhece seus planos, 
+                    quando na verdade está sendo direcionado para uma armadilha.
+                </p>
+            </div>
+
+            <div class="principle-card">
+                <h3><i class="fas fa-brain"></i> Manipulação Psicológica</h3>
+                <p>
+                    Explore os padrões de reconhecimento do adversário. Quando ele identifica 
+                    uma sequência familiar, naturalmente relaxa a vigilância em outras áreas 
+                    do tabuleiro, criando vulnerabilidades.
+                </p>
+            </div>
+
+            <div class="principle-card">
+                <h3><i class="fas fa-chess-rook"></i> Golpe das Sombras</h3>
+                <p>
+                    A peça decisiva deve permanecer em posição aparentemente passiva ou defensiva. 
+                    Sua ativação no momento certo deve ser inesperada e devastadora.
+                </p>
+            </div>
+        </div>
+
+        <!-- Botão para acessar Reflexões Profundas -->
+        <div class="simple-reflection-section">
+            <a href="{{ url_for('reflexoes') }}" class="simple-reflection-btn">
+                <i class="fas fa-feather-alt"></i>
+                Acessar Reflexões Profundas
+            </a>
+        </div>
+
+        <div class="theory-editor">
+            <h2>Suas Anotações Teóricas</h2>
+            <div class="theory-form">
+                <div class="form-group">
+                    <label for="teoria_content">Desenvolva suas ideias:</label>
+                    <textarea 
+                        id="teoria_content" 
+                        name="teoria_content" 
+                        rows="15" 
+                        placeholder="Escreva aqui suas reflexões sobre a estratégia 'In the Shadows'..."
+                    >{{ teoria_content }}</textarea>
+                </div>
+            </div>
+            <div class="theory-buttons">
+                <button id="save-theory" class="btn btn-primary">
+                    <i class="fas fa-save"></i>
+                    Salvar Teoria
+                </button>
+            </div>
+            
+            <div class="saved-ideas">
+                <h3>Suas Ideias Salvas</h3>
+                <div id="ideas-list" class="ideas-container">
+                    <!-- As ideias salvas aparecerão aqui -->
+                </div>
+                <div id="no-ideas" class="empty-ideas" style="display: none;">
+                    <p>Nenhuma ideia salva ainda. Escreva no campo acima e clique em "Salvar Teoria".</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/navigation.js') }}"></script>
+<script src="{{ url_for('static', filename='js/theory.js') }}"></script>
+{% endblock %}

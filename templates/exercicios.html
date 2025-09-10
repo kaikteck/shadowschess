@@ -1,0 +1,1558 @@
+{% extends "base.html" %}
+
+{% block title %}{% if nivel_ultra %}Exercícios Ranking 5000 - Impossíveis para Humanos{% else %}Exercícios Táticos - In the Shadows{% endif %}{% endblock %}
+
+{% block content %}
+<div class="exercises-section{% if nivel_ultra %} ultra-exercises{% endif %}">
+    {% if nivel_ultra %}
+    <!-- Header Ultra-Dimensional para Ranking 5000 -->
+    <div class="ultra-dimensional-header">
+        <div class="quantum-background">
+            <div class="quantum-particles"></div>
+            <div class="dimensional-grid"></div>
+        </div>
+        <div class="ultra-header-content">
+            <div class="ultra-title-container">
+                <h1 class="ultra-title">
+                    <span class="infinity-symbol">∞</span>
+                    EXERCÍCIOS RANKING 5000
+                    <span class="infinity-symbol">∞</span>
+                </h1>
+                <h2 class="ultra-subtitle">IMPOSSÍVEIS PARA HUMANOS RESOLVEREM</h2>
+                <div class="transcendence-line"></div>
+            </div>
+            
+            <div class="ultra-description-box">
+                <div class="hologram-effect">
+                    <p class="ultra-description">Nem <strong>Magnus Carlsen</strong> nem qualquer <strong>campeão mundial</strong> consegue resolver estes exercícios.</p>
+                    <p class="beyond-human">Situações tão complexas que transcendem os limites da <span class="highlight-mind">mente humana</span>.</p>
+                </div>
+            </div>
+            
+            <div class="ultra-warning-matrix">
+                <div class="matrix-lines"></div>
+                <div class="warning-content">
+                    <div class="warning-icon-container">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <div class="icon-pulse"></div>
+                    </div>
+                    <div class="warning-text">
+                        <strong>AVISO CRÍTICO:</strong> Estes exercícios requerem processamento de <span class="number-highlight">milhões</span> de variantes simultâneas.
+                        <br><span class="impossible-text">Nenhuma mente humana consegue processar essa complexidade.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <div class="section-header">
+        <h1><i class="fas fa-puzzle-piece"></i> Exercícios Táticos Interativos</h1>
+        <p>Resolva puzzles reais e melhore suas habilidades táticas</p>
+        <div class="shadows-quote">
+            <blockquote>
+                <i class="fas fa-quote-left"></i>
+                "A tática é saber o que fazer quando há algo a fazer"
+                <i class="fas fa-quote-right"></i>
+            </blockquote>
+            <cite>— Savielly Tartakower</cite>
+        </div>
+        {% endif %}
+    </div>
+
+    <div class="exercises-content">
+        {% if nivel_ultra %}
+        <!-- Estatísticas Ultra-Dimensionais -->
+        <div class="ultra-stats-matrix">
+            <div class="stats-dimensional-grid">
+                <div class="ultra-stat-card">
+                    <div class="stat-hologram">
+                        <i class="fas fa-infinity"></i>
+                        <span class="ultra-number" id="pontos-ultra">0</span>
+                        <label>Pontos Transcendentais</label>
+                        <div class="stat-glow"></div>
+                    </div>
+                </div>
+                <div class="ultra-stat-card">
+                    <div class="stat-hologram">
+                        <i class="fas fa-brain"></i>
+                        <span class="ultra-number" id="resolvidos-ultra">0</span>
+                        <label>Impossíveis Resolvidos</label>
+                        <div class="stat-glow"></div>
+                    </div>
+                </div>
+                <div class="ultra-stat-card">
+                    <div class="stat-hologram">
+                        <i class="fas fa-eye"></i>
+                        <span class="ultra-number">{{ exercicios|length }}</span>
+                        <label>Desafios Inumanos</label>
+                        <div class="stat-glow"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Grid Ultra-Dimensional de Exercícios -->
+        <div class="ultra-exercises-grid">
+            {% for exercicio in exercicios %}
+            <div class="ultra-exercise-card" data-difficulty="{{ exercicio.dificuldade }}" data-type="{{ exercicio.tipo_tatica }}">
+                <div class="ultra-card-matrix">
+                    <div class="matrix-overlay"></div>
+                    <div class="dimensional-borders"></div>
+                    
+                    <div class="ultra-card-header">
+                        <h3 class="ultra-exercise-title">
+                            <span class="title-hologram">{{ exercicio.titulo }}</span>
+                            <div class="title-glitch"></div>
+                        </h3>
+                        <div class="ultra-badge-container">
+                            <span class="ultra-difficulty-badge">
+                                <span class="badge-text">RANKING 5000</span>
+                                <div class="badge-energy"></div>
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <div class="ultra-card-content">
+                        <div class="description-matrix">
+                            <p class="ultra-description">{{ exercicio.descricao }}</p>
+                            <div class="description-scan-line"></div>
+                        </div>
+                        
+                        <div class="ultra-exercise-info">
+                            <div class="ultra-points-display">
+                                <div class="points-hologram">
+                                    <i class="fas fa-infinity"></i>
+                                    <span class="points-number">{{ exercicio.pontos }}</span>
+                                    <span class="points-label">PONTOS</span>
+                                </div>
+                                <div class="points-energy"></div>
+                            </div>
+                            
+                            <div class="ultra-status-display" id="ultra-status-{{ exercicio.id }}">
+                                <div class="status-scanner">
+                                    <i class="fas fa-search"></i>
+                                    <span class="status-text">IMPOSSÍVEL</span>
+                                </div>
+                                <div class="status-pulse"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="ultra-card-actions">
+                        <a href="{{ url_for('resolver_exercicio', id=exercicio.id) }}" class="ultra-challenge-btn">
+                            <div class="btn-matrix">
+                                <span class="btn-text">
+                                    <i class="fas fa-brain"></i>
+                                    TENTAR O IMPOSSÍVEL
+                                </span>
+                                <div class="btn-energy-field"></div>
+                                <div class="btn-dimensional-rift"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <!-- Filtros e Estatísticas para exercícios normais -->
+        <div class="exercises-controls">
+            <div class="filters">
+                <button class="filter-btn active" data-filter="todos">Todos</button>
+                <button class="filter-btn" data-filter="Iniciante">Iniciante</button>
+                <button class="filter-btn" data-filter="Intermediário">Intermediário</button>
+                <button class="filter-btn" data-filter="Avançado">Avançado</button>
+                <button class="filter-btn" data-filter="Pin">Puzzles Táticos</button>
+                <button class="filter-btn" data-filter="Abertura">Aberturas</button>
+                <button class="filter-btn" data-filter="Final">Finais</button>
+                <button class="filter-btn" data-filter="Estrategia">Estratégia</button>
+            </div>
+            <div class="exercises-stats">
+                <div class="stat-item">
+                    <i class="fas fa-trophy"></i>
+                    <span id="pontos-totais">0</span>
+                    <label>Pontos</label>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-check-circle"></i>
+                    <span id="resolvidos">0</span>
+                    <label>Resolvidos</label>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-tasks"></i>
+                    <span>{{ exercicios|selectattr('tipo_tatica', '!=', 'In the Shadows')|list|length }}</span>
+                    <label>Total</label>
+                </div>
+            </div>
+        </div>
+
+        <!-- Grid de Exercícios Normais -->
+        <div class="exercises-grid">
+            {% for exercicio in exercicios %}
+            {% if exercicio.tipo_tatica != 'In the Shadows' %}
+            <div class="exercise-card" data-difficulty="{{ exercicio.dificuldade }}" data-type="{{ exercicio.tipo_tatica }}">
+                <div class="exercise-header">
+                    <h3>
+                        <i class="fas fa-bolt"></i>
+                        {{ exercicio.titulo }}
+                    </h3>
+                    <div class="exercise-badges">
+                        <span class="difficulty-badge {{ exercicio.dificuldade.lower() }}">
+                            {{ exercicio.dificuldade }}
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="exercise-content">
+                    <p class="exercise-description">{{ exercicio.descricao }}</p>
+                    
+                    <div class="exercise-info">
+                        <div class="exercise-points">
+                            <i class="fas fa-star"></i>
+                            <span>{{ exercicio.pontos }} pontos</span>
+                        </div>
+                        <div class="exercise-status" id="status-{{ exercicio.id }}">
+                            <i class="fas fa-clock"></i>
+                            <span>Não resolvido</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="exercise-actions">
+                    <a href="{{ url_for('resolver_exercicio', id=exercicio.id) }}" class="btn btn-primary">
+                        <i class="fas fa-play"></i>
+                        Resolver Puzzle
+                    </a>
+                </div>
+            </div>
+            {% endif %}
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        <!-- Seção In the Shadows Avançada -->
+        <div class="shadows-advanced-section">
+            <h2><i class="fas fa-eye-slash"></i> Exercícios "In the Shadows"</h2>
+            <p>Estes exercícios aplicam diretamente os conceitos da estratégia "In the Shadows" - encontre a peça oculta que decide a partida!</p>
+            
+            <div class="shadows-exercises-grid">
+                {% for exercicio in exercicios %}
+                    {% if exercicio.tipo_tatica == 'In the Shadows' %}
+                    <div class="shadow-exercise-card">
+                        <div class="shadow-card-header">
+                            <h4>
+                                <i class="fas fa-mask"></i>
+                                {{ exercicio.titulo }}
+                            </h4>
+                            <div class="shadow-badge">
+                                <span class="difficulty-badge {{ exercicio.dificuldade.lower() }}">
+                                    {{ exercicio.dificuldade }}
+                                </span>
+                                <span class="tactic-badge">
+                                    In the Shadows
+                                </span>
+                            </div>
+                        </div>
+                        
+                        <div class="shadow-card-content">
+                            <p class="shadow-description">{{ exercicio.descricao }}</p>
+                            
+                            <div class="shadow-info">
+                                <div class="shadow-points">
+                                    <i class="fas fa-star"></i>
+                                    <span>{{ exercicio.pontos }} pontos</span>
+                                </div>
+                                <div class="shadow-status" id="shadow-status-{{ exercicio.id }}">
+                                    <i class="fas fa-clock"></i>
+                                    <span>Oculto</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="shadow-actions">
+                            <a href="{{ url_for('resolver_exercicio', id=exercicio.id) }}" class="btn btn-shadow">
+                                <i class="fas fa-eye"></i>
+                                Revelar das Sombras
+                            </a>
+                        </div>
+                    </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+            
+            <div class="shadows-info">
+                <div class="shadow-tip">
+                    <i class="fas fa-lightbulb"></i>
+                    <strong>Dica Especial:</strong> Nos exercícios "In the Shadows", a solução sempre envolve uma peça que está 
+                    aparentemente "escondida" ou em posição secundária, mas que na verdade é a chave para o sucesso tático.
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Carregar estatísticas do localStorage
+    loadExerciseStats();
+    
+    // Filtros de exercícios
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const exerciseCards = document.querySelectorAll('.exercise-card');
+    
+    filterButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            // Remover classe active de todos os botões
+            filterButtons.forEach(btn => btn.classList.remove('active'));
+            this.classList.add('active');
+            
+            const filter = this.dataset.filter;
+            
+            exerciseCards.forEach(card => {
+                if (filter === 'todos' || 
+                    card.dataset.difficulty === filter || 
+                    card.dataset.type === filter) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+    });
+    
+    // Carregar status dos exercícios
+    exerciseCards.forEach(card => {
+        const exerciseId = card.querySelector('a').href.split('/').pop();
+        const status = localStorage.getItem(`exercise_${exerciseId}_solved`);
+        const statusElement = card.querySelector(`#status-${exerciseId}`);
+        
+        if (status === 'true') {
+            statusElement.innerHTML = '<i class="fas fa-check-circle"></i><span>Resolvido</span>';
+            statusElement.classList.add('solved');
+            card.classList.add('completed');
+        }
+    });
+    
+    // Carregar status dos exercícios In the Shadows
+    const shadowCards = document.querySelectorAll('.shadow-exercise-card');
+    shadowCards.forEach(card => {
+        const exerciseId = card.querySelector('a').href.split('/').pop();
+        const status = localStorage.getItem(`exercise_${exerciseId}_solved`);
+        const statusElement = card.querySelector(`#shadow-status-${exerciseId}`);
+        
+        if (status === 'true') {
+            statusElement.innerHTML = '<i class="fas fa-eye"></i><span>Revelado</span>';
+            statusElement.classList.add('solved');
+            card.classList.add('completed');
+        }
+    });
+});
+
+function loadExerciseStats() {
+    // Contar exercícios resolvidos
+    const solvedCount = document.querySelectorAll('.exercise-card').length;
+    let resolved = 0;
+    let totalPoints = 0;
+    
+    document.querySelectorAll('.exercise-card').forEach(card => {
+        const exerciseId = card.querySelector('a').href.split('/').pop();
+        const status = localStorage.getItem(`exercise_${exerciseId}_solved`);
+        const points = parseInt(card.querySelector('.exercise-points span').textContent);
+        
+        if (status === 'true') {
+            resolved++;
+            totalPoints += points;
+        }
+    });
+    
+    document.getElementById('resolvidos').textContent = resolved;
+    document.getElementById('pontos-totais').textContent = totalPoints;
+}
+</script>
+
+<style>
+/* ================ ESTILOS ULTRA-DIMENSIONAIS PARA RANKING 5000 ================ */
+
+/* Background quântico animado */
+.ultra-dimensional-header {
+    position: relative;
+    background: linear-gradient(135deg, 
+        rgba(0, 0, 0, 0.95) 0%, 
+        rgba(10, 0, 30, 0.9) 25%, 
+        rgba(20, 0, 60, 0.85) 50%, 
+        rgba(40, 0, 120, 0.8) 75%, 
+        rgba(0, 0, 0, 0.95) 100%);
+    min-height: 60vh;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 3px solid #00ffff;
+    box-shadow: 0 0 50px rgba(0, 255, 255, 0.3);
+}
+
+.quantum-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+}
+
+.quantum-particles {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: 
+        radial-gradient(2px 2px at 20px 30px, #00ffff, transparent),
+        radial-gradient(2px 2px at 40px 70px, rgba(255, 0, 255, 0.8), transparent),
+        radial-gradient(1px 1px at 90px 40px, rgba(0, 255, 0, 0.6), transparent),
+        radial-gradient(1px 1px at 130px 80px, rgba(255, 255, 0, 0.4), transparent),
+        radial-gradient(2px 2px at 160px 30px, rgba(255, 0, 0, 0.6), transparent);
+    background-repeat: repeat;
+    background-size: 200px 100px;
+    animation: quantumFloat 8s ease-in-out infinite;
+    opacity: 0.6;
+}
+
+.dimensional-grid {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: 
+        linear-gradient(rgba(0, 255, 255, 0.1) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 255, 255, 0.1) 1px, transparent 1px);
+    background-size: 50px 50px;
+    animation: gridShift 6s linear infinite;
+    opacity: 0.3;
+}
+
+@keyframes quantumFloat {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    25% { transform: translateY(-20px) rotate(90deg); }
+    50% { transform: translateY(-10px) rotate(180deg); }
+    75% { transform: translateY(-30px) rotate(270deg); }
+}
+
+@keyframes gridShift {
+    0% { transform: translate(0, 0); }
+    100% { transform: translate(50px, 50px); }
+}
+
+.ultra-header-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    max-width: 1000px;
+    padding: 2rem;
+}
+
+.ultra-title-container {
+    margin-bottom: 3rem;
+}
+
+.ultra-title {
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    font-weight: 900;
+    color: transparent;
+    background: linear-gradient(45deg, #00ffff, #ff00ff, #00ff00, #ffff00, #ff0000, #00ffff);
+    background-size: 400% 400%;
+    background-clip: text;
+    -webkit-background-clip: text;
+    animation: rainbowText 3s ease-in-out infinite;
+    text-shadow: 0 0 30px rgba(0, 255, 255, 0.5);
+    margin: 0;
+    letter-spacing: 3px;
+}
+
+.infinity-symbol {
+    font-size: 1.2em;
+    color: #00ffff;
+    text-shadow: 0 0 20px #00ffff;
+    animation: infinityPulse 2s ease-in-out infinite;
+}
+
+.ultra-subtitle {
+    font-size: clamp(1.2rem, 3vw, 2rem);
+    color: #ff00ff;
+    font-weight: 700;
+    margin: 1rem 0;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 0 0 20px rgba(255, 0, 255, 0.8);
+    animation: subtitleGlow 2.5s ease-in-out infinite alternate;
+}
+
+.transcendence-line {
+    height: 3px;
+    background: linear-gradient(90deg, 
+        transparent 0%, 
+        #00ffff 20%, 
+        #ff00ff 40%, 
+        #00ff00 60%, 
+        #ffff00 80%, 
+        transparent 100%);
+    margin: 2rem auto;
+    width: 60%;
+    border-radius: 2px;
+    animation: transcendencePulse 2s ease-in-out infinite;
+}
+
+@keyframes rainbowText {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+
+@keyframes infinityPulse {
+    0%, 100% { transform: scale(1) rotate(0deg); }
+    50% { transform: scale(1.2) rotate(180deg); }
+}
+
+@keyframes subtitleGlow {
+    from { text-shadow: 0 0 20px rgba(255, 0, 255, 0.8); }
+    to { text-shadow: 0 0 30px rgba(255, 0, 255, 1), 0 0 40px rgba(0, 255, 255, 0.5); }
+}
+
+@keyframes transcendencePulse {
+    0%, 100% { opacity: 0.6; transform: scaleX(1); }
+    50% { opacity: 1; transform: scaleX(1.1); }
+}
+
+.ultra-description-box {
+    background: rgba(0, 0, 0, 0.8);
+    border: 2px solid rgba(0, 255, 255, 0.6);
+    border-radius: 20px;
+    padding: 2rem;
+    margin: 2rem 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.hologram-effect {
+    position: relative;
+    z-index: 2;
+}
+
+.ultra-description-box::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, #00ffff, #ff00ff, #00ff00, #00ffff);
+    border-radius: 20px;
+    z-index: -1;
+    animation: hologramBorder 3s linear infinite;
+}
+
+@keyframes hologramBorder {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.ultra-description {
+    font-size: 1.3rem;
+    color: #00ffff;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    text-shadow: 0 0 10px rgba(0, 255, 255, 0.6);
+}
+
+.beyond-human {
+    font-size: 1.1rem;
+    color: #ff00ff;
+    font-style: italic;
+    margin: 0;
+}
+
+.highlight-mind {
+    color: #ffff00;
+    font-weight: bold;
+    text-shadow: 0 0 15px rgba(255, 255, 0, 0.8);
+}
+
+.ultra-warning-matrix {
+    position: relative;
+    background: rgba(255, 0, 0, 0.1);
+    border: 2px solid rgba(255, 0, 0, 0.8);
+    border-radius: 15px;
+    padding: 2rem;
+    margin-top: 2rem;
+    overflow: hidden;
+}
+
+.matrix-lines {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        linear-gradient(90deg, transparent 48%, rgba(255, 0, 0, 0.3) 50%, transparent 52%),
+        linear-gradient(0deg, transparent 48%, rgba(255, 0, 0, 0.3) 50%, transparent 52%);
+    background-size: 30px 30px;
+    animation: matrixScan 4s linear infinite;
+    opacity: 0.5;
+}
+
+@keyframes matrixScan {
+    0% { transform: translate(0, 0); }
+    100% { transform: translate(30px, 30px); }
+}
+
+.warning-content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.warning-icon-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.warning-icon-container i {
+    font-size: 2.5rem;
+    color: #ff0000;
+    z-index: 2;
+    position: relative;
+}
+
+.icon-pulse {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    border: 2px solid #ff0000;
+    border-radius: 50%;
+    animation: iconPulseEffect 2s ease-out infinite;
+}
+
+@keyframes iconPulseEffect {
+    0% {
+        transform: scale(0.8);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(2);
+        opacity: 0;
+    }
+}
+
+.warning-text {
+    flex: 1;
+    color: #ffffff;
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
+.number-highlight {
+    color: #ffff00;
+    font-weight: bold;
+    font-size: 1.2em;
+    text-shadow: 0 0 10px rgba(255, 255, 0, 0.8);
+}
+
+.impossible-text {
+    color: #ff0000;
+    font-weight: bold;
+    text-shadow: 0 0 10px rgba(255, 0, 0, 0.6);
+}
+
+/* Estatísticas Ultra-Dimensionais */
+.ultra-stats-matrix {
+    background: rgba(0, 0, 0, 0.9);
+    border: 2px solid rgba(0, 255, 255, 0.6);
+    border-radius: 20px;
+    padding: 2rem;
+    margin: 3rem 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.stats-dimensional-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    position: relative;
+    z-index: 2;
+}
+
+.ultra-stat-card {
+    position: relative;
+    background: rgba(10, 10, 30, 0.8);
+    border: 1px solid rgba(0, 255, 255, 0.4);
+    border-radius: 15px;
+    padding: 2rem;
+    text-align: center;
+    overflow: hidden;
+    transition: all 0.4s ease;
+}
+
+.ultra-stat-card:hover {
+    transform: translateY(-10px) scale(1.05);
+    border-color: #00ffff;
+    box-shadow: 0 20px 40px rgba(0, 255, 255, 0.3);
+}
+
+.stat-hologram {
+    position: relative;
+    z-index: 2;
+}
+
+.ultra-stat-card i {
+    font-size: 3rem;
+    color: #00ffff;
+    margin-bottom: 1rem;
+    text-shadow: 0 0 20px rgba(0, 255, 255, 0.8);
+}
+
+.ultra-number {
+    display: block;
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: #ffff00;
+    margin-bottom: 0.5rem;
+    text-shadow: 0 0 20px rgba(255, 255, 0, 0.8);
+    animation: numberGlow 2s ease-in-out infinite alternate;
+}
+
+.ultra-stat-card label {
+    color: #ffffff;
+    font-size: 1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+@keyframes numberGlow {
+    from { text-shadow: 0 0 20px rgba(255, 255, 0, 0.8); }
+    to { text-shadow: 0 0 30px rgba(255, 255, 0, 1), 0 0 40px rgba(0, 255, 255, 0.5); }
+}
+
+.stat-glow {
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, #00ffff, transparent, #00ffff);
+    border-radius: 15px;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.ultra-stat-card:hover .stat-glow {
+    opacity: 0.6;
+}
+
+/* Grid Ultra-Dimensional de Exercícios */
+.ultra-exercises-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    gap: 2rem;
+    margin: 3rem 0;
+}
+
+.ultra-exercise-card {
+    position: relative;
+    transition: all 0.5s ease;
+}
+
+.ultra-card-matrix {
+    position: relative;
+    background: linear-gradient(135deg, 
+        rgba(0, 0, 0, 0.95) 0%, 
+        rgba(10, 0, 30, 0.9) 50%, 
+        rgba(0, 0, 0, 0.95) 100%);
+    border: 2px solid rgba(0, 255, 255, 0.6);
+    border-radius: 20px;
+    padding: 2rem;
+    overflow: hidden;
+    min-height: 350px;
+    display: flex;
+    flex-direction: column;
+}
+
+.ultra-exercise-card:hover .ultra-card-matrix {
+    transform: translateY(-15px) rotateX(5deg);
+    border-color: #00ffff;
+    box-shadow: 
+        0 25px 50px rgba(0, 255, 255, 0.4),
+        0 0 100px rgba(255, 0, 255, 0.2);
+}
+
+.matrix-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        linear-gradient(45deg, transparent 48%, rgba(0, 255, 255, 0.1) 50%, transparent 52%),
+        linear-gradient(-45deg, transparent 48%, rgba(255, 0, 255, 0.1) 50%, transparent 52%);
+    background-size: 20px 20px;
+    animation: matrixOverlay 8s linear infinite;
+    opacity: 0.3;
+}
+
+@keyframes matrixOverlay {
+    0% { transform: translate(0, 0) rotate(0deg); }
+    100% { transform: translate(20px, 20px) rotate(360deg); }
+}
+
+.dimensional-borders {
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    border-radius: 20px;
+    background: linear-gradient(45deg, #00ffff, #ff00ff, #00ff00, #ffff00, #ff0000, #00ffff);
+    background-size: 400% 400%;
+    animation: dimensionalBorder 6s ease-in-out infinite;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    z-index: -1;
+}
+
+.ultra-exercise-card:hover .dimensional-borders {
+    opacity: 0.7;
+}
+
+@keyframes dimensionalBorder {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+
+.ultra-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1.5rem;
+    position: relative;
+    z-index: 2;
+}
+
+.ultra-exercise-title {
+    flex: 1;
+    margin: 0;
+    position: relative;
+}
+
+.title-hologram {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #00ffff;
+    text-shadow: 0 0 15px rgba(0, 255, 255, 0.8);
+    display: block;
+    position: relative;
+    z-index: 2;
+}
+
+.title-glitch {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.1), transparent);
+    animation: titleGlitch 3s ease-in-out infinite;
+    opacity: 0;
+}
+
+.ultra-exercise-card:hover .title-glitch {
+    opacity: 1;
+}
+
+@keyframes titleGlitch {
+    0%, 100% { transform: translateX(-100%); }
+    50% { transform: translateX(100%); }
+}
+
+.ultra-difficulty-badge {
+    position: relative;
+    background: rgba(255, 0, 255, 0.2);
+    border: 2px solid #ff00ff;
+    border-radius: 15px;
+    padding: 0.8rem 1.5rem;
+    overflow: hidden;
+}
+
+.badge-text {
+    position: relative;
+    z-index: 2;
+    color: #ff00ff;
+    font-weight: bold;
+    font-size: 0.9rem;
+    text-shadow: 0 0 10px rgba(255, 0, 255, 0.8);
+}
+
+.badge-energy {
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    right: -50%;
+    bottom: -50%;
+    background: radial-gradient(circle, rgba(255, 0, 255, 0.3), transparent 50%);
+    animation: badgeEnergy 4s linear infinite;
+}
+
+@keyframes badgeEnergy {
+    0% { transform: rotate(0deg) scale(1); }
+    100% { transform: rotate(360deg) scale(1.5); }
+}
+
+.ultra-card-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    z-index: 2;
+}
+
+.description-matrix {
+    position: relative;
+    background: rgba(0, 0, 0, 0.6);
+    border-radius: 10px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    border: 1px solid rgba(0, 255, 255, 0.3);
+    overflow: hidden;
+}
+
+.ultra-description {
+    color: #ffffff;
+    font-size: 1rem;
+    line-height: 1.6;
+    margin: 0;
+    position: relative;
+    z-index: 2;
+}
+
+.description-scan-line {
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #00ffff, transparent);
+    animation: descriptionScan 4s ease-in-out infinite;
+}
+
+@keyframes descriptionScan {
+    0%, 100% { left: -100%; }
+    50% { left: 100%; }
+}
+
+.ultra-exercise-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.ultra-points-display {
+    position: relative;
+}
+
+.points-hologram {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem 1.5rem;
+    background: rgba(255, 255, 0, 0.1);
+    border: 2px solid rgba(255, 255, 0, 0.6);
+    border-radius: 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+.points-hologram i {
+    color: #ffff00;
+    font-size: 1.2rem;
+    text-shadow: 0 0 10px rgba(255, 255, 0, 0.8);
+}
+
+.points-number {
+    font-size: 1.4rem;
+    font-weight: 900;
+    color: #ffff00;
+    text-shadow: 0 0 15px rgba(255, 255, 0, 0.8);
+}
+
+.points-label {
+    font-size: 0.9rem;
+    color: #ffffff;
+    font-weight: 600;
+}
+
+.ultra-status-display {
+    position: relative;
+}
+
+.status-scanner {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem 1.5rem;
+    background: rgba(255, 0, 0, 0.1);
+    border: 2px solid rgba(255, 0, 0, 0.6);
+    border-radius: 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+.status-scanner i {
+    color: #ff0000;
+    animation: statusScan 2s linear infinite;
+}
+
+.status-text {
+    color: #ff0000;
+    font-weight: bold;
+    text-shadow: 0 0 10px rgba(255, 0, 0, 0.6);
+}
+
+@keyframes statusScan {
+    0%, 100% { transform: rotate(0deg); }
+    50% { transform: rotate(180deg); }
+}
+
+.ultra-challenge-btn {
+    position: relative;
+    display: block;
+    text-decoration: none;
+    border-radius: 25px;
+    overflow: hidden;
+    transition: all 0.4s ease;
+    margin-top: auto;
+}
+
+.btn-matrix {
+    position: relative;
+    background: linear-gradient(135deg, #ff0000 0%, #ff00ff 50%, #0000ff 100%);
+    padding: 1.2rem 2rem;
+    text-align: center;
+    overflow: hidden;
+}
+
+.btn-text {
+    position: relative;
+    z-index: 3;
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+}
+
+.btn-energy-field {
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    right: -50%;
+    bottom: -50%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.2), transparent 60%);
+    animation: energyField 3s linear infinite;
+    z-index: 1;
+}
+
+.btn-dimensional-rift {
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    z-index: 2;
+    transition: left 0.6s ease;
+}
+
+.ultra-challenge-btn:hover .btn-dimensional-rift {
+    left: 100%;
+}
+
+@keyframes energyField {
+    0% { transform: rotate(0deg) scale(1); }
+    100% { transform: rotate(360deg) scale(1.5); }
+}
+
+.ultra-challenge-btn:hover {
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 20px 40px rgba(255, 0, 255, 0.6);
+}
+
+/* Estilos normais para exercícios regulares */
+.exercises-section {
+    padding: 2rem 0;
+}
+
+.exercises-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.filters {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.filter-btn {
+    background: rgba(30, 30, 30, 0.8);
+    color: #e0e0e0;
+    border: 1px solid rgba(220, 53, 69, 0.3);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+}
+
+.filter-btn.active,
+.filter-btn:hover {
+    background: #dc3545;
+    border-color: #dc3545;
+    color: white;
+}
+
+.exercises-stats {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.stat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.stat-item i {
+    color: #dc3545;
+    font-size: 1.5rem;
+    margin-bottom: 0.25rem;
+}
+
+.stat-item span {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #e0e0e0;
+}
+
+.stat-item label {
+    font-size: 0.8rem;
+    color: #b0b0b0;
+}
+
+.exercises-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+}
+
+.exercise-card {
+    background: rgba(20, 20, 20, 0.8);
+    border: 1px solid rgba(220, 53, 69, 0.2);
+    border-radius: 12px;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+}
+
+.exercise-card:hover {
+    transform: translateY(-5px);
+    border-color: #dc3545;
+    box-shadow: 0 10px 25px rgba(220, 53, 69, 0.2);
+}
+
+.exercise-card.completed {
+    border-color: #28a745;
+    background: rgba(40, 167, 69, 0.1);
+}
+
+.exercise-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+}
+
+.exercise-header h3 {
+    color: #dc3545;
+    margin: 0;
+    font-size: 1.1rem;
+}
+
+.exercise-badges {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.difficulty-badge, .tactic-badge {
+    padding: 0.25rem 0.5rem;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    text-align: center;
+}
+
+.difficulty-badge.iniciante {
+    background: #28a745;
+    color: white;
+}
+
+.difficulty-badge.intermediário {
+    background: #ffc107;
+    color: black;
+}
+
+.difficulty-badge.avançado {
+    background: #dc3545;
+    color: white;
+}
+
+.tactic-badge {
+    background: rgba(220, 53, 69, 0.2);
+    color: #dc3545;
+    border: 1px solid rgba(220, 53, 69, 0.3);
+}
+
+.exercise-description {
+    color: #d0d0d0;
+    margin-bottom: 1rem;
+    line-height: 1.5;
+}
+
+.exercise-info {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+}
+
+.exercise-points {
+    color: #ffd700;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.exercise-status {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #b0b0b0;
+}
+
+.exercise-status.solved {
+    color: #28a745;
+}
+
+.shadows-advanced-section {
+    background: linear-gradient(135deg, rgba(220, 53, 69, 0.1) 0%, rgba(0, 0, 0, 0.8) 100%);
+    border: 1px solid rgba(220, 53, 69, 0.3);
+    border-radius: 12px;
+    padding: 2rem;
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.shadows-exercises-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1rem;
+    margin: 1.5rem 0;
+}
+
+.shadow-exercise-card {
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.9) 0%, rgba(220, 53, 69, 0.1) 100%);
+    border: 2px solid rgba(220, 53, 69, 0.3);
+    border-radius: 15px;
+    padding: 1.5rem;
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.shadow-exercise-card::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, #dc3545, transparent, #dc3545);
+    border-radius: 15px;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.shadow-exercise-card:hover::before {
+    opacity: 0.7;
+}
+
+.shadow-exercise-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 15px 35px rgba(220, 53, 69, 0.4);
+}
+
+.shadow-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+}
+
+.shadow-card-header h4 {
+    color: #dc3545;
+    margin: 0;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.shadow-card-header i {
+    color: #dc3545;
+    opacity: 0.8;
+}
+
+.shadow-badge {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.shadow-description {
+    color: #d0d0d0;
+    font-style: italic;
+    margin-bottom: 1rem;
+    line-height: 1.5;
+}
+
+.shadow-info {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+}
+
+.shadow-points {
+    color: #ffd700;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: bold;
+}
+
+.shadow-status {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #dc3545;
+    font-style: italic;
+}
+
+.btn-shadow {
+    background: linear-gradient(135deg, #dc3545 0%, #a71e2a 100%);
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 25px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    width: 100%;
+    justify-content: center;
+}
+
+.btn-shadow:hover {
+    background: linear-gradient(135deg, #a71e2a 0%, #dc3545 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(220, 53, 69, 0.4);
+    color: white;
+    text-decoration: none;
+}
+
+.shadows-info {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(220, 53, 69, 0.3);
+}
+
+.shadow-tip {
+    background: rgba(220, 53, 69, 0.1);
+    border: 1px solid rgba(220, 53, 69, 0.3);
+    border-radius: 10px;
+    padding: 1.5rem;
+    color: #e0e0e0;
+    line-height: 1.6;
+}
+
+.shadow-tip i {
+    color: #dc3545;
+    margin-right: 0.5rem;
+}
+
+.shadow-tip strong {
+    color: #dc3545;
+}
+
+/* Responsividade Ultra-Dimensional */
+@media (max-width: 1200px) {
+    .ultra-exercises-grid {
+        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    }
+    
+    .stats-dimensional-grid {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+}
+
+@media (max-width: 768px) {
+    .ultra-dimensional-header {
+        min-height: 50vh;
+        padding: 1rem;
+    }
+    
+    .ultra-header-content {
+        padding: 1rem;
+    }
+    
+    .ultra-title {
+        font-size: clamp(2rem, 8vw, 3.5rem);
+        letter-spacing: 2px;
+    }
+    
+    .ultra-subtitle {
+        font-size: clamp(1rem, 4vw, 1.5rem);
+    }
+    
+    .ultra-description-box,
+    .ultra-warning-matrix {
+        padding: 1.5rem;
+        margin: 1.5rem 0;
+    }
+    
+    .ultra-exercises-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        margin: 2rem 0;
+    }
+    
+    .ultra-card-matrix {
+        padding: 1.5rem;
+        min-height: 300px;
+    }
+    
+    .stats-dimensional-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .ultra-stat-card {
+        padding: 1.5rem;
+    }
+    
+    .ultra-number {
+        font-size: 2rem;
+    }
+    
+    .points-hologram,
+    .status-scanner {
+        padding: 0.8rem 1.2rem;
+    }
+    
+    .btn-text {
+        font-size: 1rem;
+        gap: 0.5rem;
+    }
+    
+    .warning-content {
+        flex-direction: column;
+        text-align: center;
+        gap: 1rem;
+    }
+    
+    .warning-icon-container {
+        order: -1;
+    }
+    
+    /* Exercícios normais */
+    .exercises-controls {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .exercises-stats {
+        justify-content: space-around;
+    }
+    
+    .exercises-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .shadows-exercises-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .shadow-exercise-card {
+        margin-bottom: 1rem;
+    }
+    
+    .shadow-tip {
+        padding: 1rem;
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .ultra-title {
+        font-size: clamp(1.5rem, 10vw, 2.5rem);
+        letter-spacing: 1px;
+    }
+    
+    .ultra-exercises-grid {
+        gap: 1rem;
+    }
+    
+    .ultra-card-matrix {
+        padding: 1rem;
+        min-height: auto;
+    }
+    
+    .ultra-exercise-info {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: stretch;
+    }
+    
+    .points-hologram,
+    .status-scanner {
+        justify-content: center;
+        padding: 1rem;
+    }
+}
+</style>
+{% endblock %}

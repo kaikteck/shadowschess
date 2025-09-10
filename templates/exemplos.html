@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+
+{% block title %}Exemplos - In the Shadows{% endblock %}
+
+{% block content %}
+<div class="examples-section">
+    <div class="section-header">
+        <h1><i class="fas fa-lightbulb"></i> Exemplos Práticos</h1>
+        <p>Registre e analise situações reais onde a estratégia "In the Shadows" foi aplicada</p>
+    </div>
+
+    <div class="examples-content">
+        <div class="add-example">
+            <h2>Adicionar Novo Exemplo</h2>
+            <form method="POST" class="example-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="nome">Nome da Jogada:</label>
+                        <input type="text" id="nome" name="nome" required 
+                               placeholder="Ex: Armadilha da Torre Silenciosa">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="situacao">Situação / Contexto:</label>
+                        <textarea id="situacao" name="situacao" rows="3" required
+                                placeholder="Descreva o jogo, momento da partida, posição inicial..."></textarea>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="peca_sombra">Peça/Movimento nas Sombras:</label>
+                        <input type="text" id="peca_sombra" name="peca_sombra" required
+                               placeholder="Ex: Torre na coluna h, aparentemente passiva">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="resultado">Golpe Final / Resultado:</label>
+                        <textarea id="resultado" name="resultado" rows="3" required
+                                placeholder="Como a peça oculta decidiu a partida..."></textarea>
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-plus"></i>
+                    Adicionar Exemplo
+                </button>
+            </form>
+        </div>
+
+        <div class="examples-list">
+            <h2>Seus Exemplos</h2>
+            {% if exemplos %}
+                <div class="examples-grid">
+                    {% for exemplo in exemplos %}
+                    <div class="example-card">
+                        <div class="example-header">
+                            <h3>{{ exemplo.nome }}</h3>
+                            <a href="#" 
+                               class="delete-btn" 
+                               data-delete-id="{{ exemplo.id }}">
+                                <i class="fas fa-trash"></i>
+                            </a>
+                        </div>
+                        
+                        <div class="example-content">
+                            <div class="example-field">
+                                <strong><i class="fas fa-chess-board"></i> Situação:</strong>
+                                <p>{{ exemplo.situacao }}</p>
+                            </div>
+                            
+                            <div class="example-field">
+                                <strong><i class="fas fa-eye-slash"></i> Peça nas Sombras:</strong>
+                                <p>{{ exemplo.peca_sombra }}</p>
+                            </div>
+                            
+                            <div class="example-field">
+                                <strong><i class="fas fa-crown"></i> Resultado:</strong>
+                                <p>{{ exemplo.resultado }}</p>
+                            </div>
+                        </div>
+                        
+                        <div class="example-footer">
+                            <small><i class="fas fa-calendar"></i> {{ exemplo.created_at.strftime('%d/%m/%Y %H:%M') }}</small>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="empty-state">
+                    <i class="fas fa-chess-knight"></i>
+                    <h3>Nenhum exemplo registrado</h3>
+                    <p>Comece adicionando seu primeiro exemplo da estratégia "In the Shadows"</p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/navigation.js') }}"></script>
+<script src="{{ url_for('static', filename='js/examples.js') }}"></script>
+{% endblock %}

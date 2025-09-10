@@ -1,0 +1,1306 @@
+{% extends "base.html" %}
+
+{% block title %}{{ exercicio.titulo }} - Exercício Tático{% endblock %}
+
+{% block content %}
+<div class="solve-exercise-section">
+    <div class="exercise-header">
+        <div class="back-navigation">
+            <a href="{{ url_for('exercicios') }}" class="btn btn-secondary">
+                <i class="fas fa-arrow-left"></i>
+                Voltar aos Exercícios
+            </a>
+        </div>
+        
+        <div class="exercise-title">
+            <h1><i class="fas fa-puzzle-piece"></i> {{ exercicio.titulo }}</h1>
+            <div class="exercise-meta">
+                <span class="difficulty-badge {{ exercicio.dificuldade.lower() }}">
+                    {{ exercicio.dificuldade }}
+                </span>
+                <span class="tactic-badge">{{ exercicio.tipo_tatica }}</span>
+                <span class="points-badge">
+                    <i class="fas fa-star"></i>
+                    {{ exercicio.pontos }} pontos
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <div class="exercise-content">
+        <!-- Descrição e instruções -->
+        <div class="exercise-instructions">
+            <h3><i class="fas fa-info-circle"></i> Objetivo</h3>
+            <p>{{ exercicio.descricao }}</p>
+            <div class="instruction-steps">
+                <p><strong>Como resolver:</strong></p>
+                <ol>
+                    <li>Analise a posição no tabuleiro abaixo</li>
+                    <li>Encontre o melhor movimento tático</li>
+                    <li>Clique na peça e depois na casa de destino</li>
+                    <li>Clique em "Verificar Solução" para conferir</li>
+                </ol>
+                <div class="moves-needed-info">
+                    <i class="fas fa-chess-pawn"></i>
+                    <strong>Jogadas necessárias:</strong> <span id="moves-needed">1 movimento</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Área principal do exercício -->
+        <div class="exercise-main">
+            <!-- Tabuleiro de xadrez -->
+            <div class="chess-container">
+                <div id="exercise-board" class="chess-board"></div>
+                
+                <div class="chess-controls">
+                    <div class="control-group">
+                        <button id="reset-position" class="btn btn-warning">
+                            <i class="fas fa-undo"></i>
+                            Resetar Posição
+                        </button>
+                        <button id="show-hint" class="btn btn-info">
+                            <i class="fas fa-lightbulb"></i>
+                            Mostrar Dica
+                        </button>
+                    </div>
+                    
+                    <div class="control-group">
+                        <button id="verify-solution" class="btn btn-primary" disabled>
+                            <i class="fas fa-check"></i>
+                            Verificar Solução
+                        </button>
+                        <button id="ask-enemy-response" class="btn btn-secondary" style="display: none;">
+                            <i class="fas fa-brain"></i>
+                            Resposta do Adversário
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Painel lateral -->
+            <div class="exercise-sidebar">
+                <!-- Status atual -->
+                <div class="status-panel">
+                    <h4><i class="fas fa-crosshairs"></i> Status</h4>
+                    <div id="current-status">
+                        <p>Faça seu movimento...</p>
+                    </div>
+                </div>
+
+                <!-- Histórico de movimentos -->
+                <div class="moves-panel">
+                    <h4><i class="fas fa-list"></i> Movimentos</h4>
+                    <div id="move-history">
+                        <p class="no-moves">Nenhum movimento ainda</p>
+                    </div>
+                </div>
+
+                <!-- Análise do adversário -->
+                <div class="enemy-analysis" id="enemy-analysis" style="display: none;">
+                    <h4><i class="fas fa-brain"></i> Análise do Adversário</h4>
+                    <div id="enemy-response" class="analysis-content">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de resultado -->
+    <div id="result-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="result-title"></h3>
+                <button class="modal-close" onclick="closeResultModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="result-content"></div>
+            </div>
+            <div class="modal-footer">
+                <button onclick="closeResultModal()" class="btn btn-secondary">Fechar</button>
+                <a href="{{ url_for('exercicios') }}" class="btn btn-primary">Próximo Exercício</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// Dados do exercício
+const exerciseData = {
+    id: {{ exercicio.id }},
+    title: "{{ exercicio.titulo }}",
+    initialPosition: {{ exercicio.posicao_inicial | safe }},
+    correctMove: "{{ exercicio.melhor_lance }}",
+    points: {{ exercicio.pontos }},
+    hint: "{{ exercicio.dica }}",
+    explanation: `{{ exercicio.explicacao_solucao }}`,
+    tacticType: "{{ exercicio.tipo_tatica }}",
+    movesNeeded: {{ exercicio.jogadas_necessarias | default(1) }}
+};
+
+let currentPosition = {...exerciseData.initialPosition};
+let selectedSquare = null;
+let moveHistory = [];
+let lastMove = null;
+
+document.addEventListener('DOMContentLoaded', function() {
+    initializeExerciseBoard();
+    setupEventListeners();
+    updateMovesNeededDisplay();
+});
+
+function updateMovesNeededDisplay() {
+    const movesSpan = document.getElementById('moves-needed');
+    if (movesSpan) {
+        const moves = exerciseData.movesNeeded;
+        movesSpan.textContent = moves === 1 ? '1 movimento' : `${moves} movimentos`;
+    }
+}
+
+function initializeExerciseBoard() {
+    const boardElement = document.getElementById('exercise-board');
+    boardElement.innerHTML = '';
+    
+    // Criar tabuleiro
+    for (let rank = 8; rank >= 1; rank--) {
+        for (let file = 0; file < 8; file++) {
+            const fileChar = String.fromCharCode(97 + file);
+            const square = fileChar + rank;
+            
+            const squareElement = document.createElement('div');
+            squareElement.className = `chess-square ${(rank + file) % 2 === 0 ? 'dark' : 'light'}`;
+            squareElement.dataset.square = square;
+            
+            // Coordenadas
+            if (file === 0) {
+                const rankLabel = document.createElement('div');
+                rankLabel.className = 'rank-label';
+                rankLabel.textContent = rank;
+                squareElement.appendChild(rankLabel);
+            }
+            
+            if (rank === 1) {
+                const fileLabel = document.createElement('div');
+                fileLabel.className = 'file-label';
+                fileLabel.textContent = fileChar;
+                squareElement.appendChild(fileLabel);
+            }
+            
+            squareElement.addEventListener('click', handleSquareClick);
+            boardElement.appendChild(squareElement);
+        }
+    }
+    
+    renderExerciseBoard();
+}
+
+function renderExerciseBoard() {
+    const squares = document.querySelectorAll('.chess-square');
+    const PIECES = {
+        'wK': '♔', 'wQ': '♕', 'wR': '♖', 'wB': '♗', 'wN': '♘', 'wP': '♙',
+        'bK': '♚', 'bQ': '♛', 'bR': '♜', 'bB': '♝', 'bN': '♞', 'bP': '♟'
+    };
+    
+    squares.forEach(square => {
+        const squareId = square.dataset.square;
+        const piece = currentPosition[squareId];
+        
+        // Limpar conteúdo exceto labels
+        const labels = square.querySelectorAll('.rank-label, .file-label');
+        square.innerHTML = '';
+        labels.forEach(label => square.appendChild(label));
+        
+        if (piece) {
+            const pieceElement = document.createElement('span');
+            pieceElement.textContent = PIECES[piece];
+            pieceElement.style.cursor = 'grab';
+            pieceElement.style.userSelect = 'none';
+            pieceElement.style.fontSize = '2rem';
+            pieceElement.style.fontWeight = 'bold';
+            
+            if (piece.startsWith('w')) {
+                pieceElement.style.color = '#ffffff';
+                pieceElement.style.textShadow = '2px 2px 4px rgba(0, 0, 0, 0.8)';
+            } else {
+                pieceElement.style.color = '#1a1a1a';
+                pieceElement.style.textShadow = '1px 1px 2px rgba(255, 255, 255, 0.3)';
+            }
+            
+            square.appendChild(pieceElement);
+        }
+    });
+}
+
+function handleSquareClick(event) {
+    const square = event.currentTarget.dataset.square;
+    
+    if (selectedSquare) {
+        if (selectedSquare === square) {
+            clearSelection();
+        } else {
+            // Verificar se o movimento é válido antes de executar
+            if (isValidMove(selectedSquare, square)) {
+                makeMove(selectedSquare, square);
+            } else {
+                updateStatus('❌ Movimento inválido! Verifique as regras da peça.');
+            }
+            clearSelection();
+        }
+    } else if (currentPosition[square]) {
+        const piece = currentPosition[square];
+        // Apenas peças brancas podem ser movidas (jogador sempre joga com brancas)
+        if (piece.startsWith('w')) {
+            selectedSquare = square;
+            event.currentTarget.classList.add('selected');
+            showValidMoves(square);
+            updateStatus(`Peça selecionada: ${getPieceName(piece)} em ${square}`);
+        } else {
+            updateStatus('❌ Você só pode mover peças brancas!');
+        }
+    }
+}
+
+// ================ VALIDAÇÃO DE MOVIMENTOS =================
+function isValidMove(from, to) {
+    const piece = currentPosition[from];
+    if (!piece) return false;
+    
+    const pieceType = piece[1]; // K, Q, R, B, N, P
+    const pieceColor = piece[0]; // w, b
+    
+    // Verificar se não está tentando capturar própria peça
+    const targetPiece = currentPosition[to];
+    if (targetPiece && targetPiece[0] === pieceColor) {
+        return false;
+    }
+    
+    switch (pieceType) {
+        case 'P': return isValidPawnMove(from, to, pieceColor);
+        case 'R': return isValidRookMove(from, to);
+        case 'N': return isValidKnightMove(from, to);
+        case 'B': return isValidBishopMove(from, to);
+        case 'Q': return isValidQueenMove(from, to);
+        case 'K': return isValidKingMove(from, to);
+        default: return false;
+    }
+}
+
+function isValidPawnMove(from, to, color) {
+    const fromFile = from.charCodeAt(0);
+    const fromRank = parseInt(from[1]);
+    const toFile = to.charCodeAt(0);
+    const toRank = parseInt(to[1]);
+    
+    const direction = color === 'w' ? 1 : -1;
+    const startRank = color === 'w' ? 2 : 7;
+    
+    // Movimento para frente
+    if (fromFile === toFile) {
+        if (currentPosition[to]) return false; // Casa ocupada
+        
+        // Uma casa para frente
+        if (toRank === fromRank + direction) return true;
+        
+        // Duas casas do início
+        if (fromRank === startRank && toRank === fromRank + 2 * direction) return true;
+    }
+    
+    // Captura diagonal
+    if (Math.abs(fromFile - toFile) === 1 && toRank === fromRank + direction) {
+        return currentPosition[to] !== undefined;
+    }
+    
+    return false;
+}
+
+function isValidRookMove(from, to) {
+    const fromFile = from.charCodeAt(0);
+    const fromRank = parseInt(from[1]);
+    const toFile = to.charCodeAt(0);
+    const toRank = parseInt(to[1]);
+    
+    // Movimento horizontal ou vertical
+    if (fromFile !== toFile && fromRank !== toRank) return false;
+    
+    return isPathClear(from, to);
+}
+
+function isValidKnightMove(from, to) {
+    const fromFile = from.charCodeAt(0);
+    const fromRank = parseInt(from[1]);
+    const toFile = to.charCodeAt(0);
+    const toRank = parseInt(to[1]);
+    
+    const fileDiff = Math.abs(fromFile - toFile);
+    const rankDiff = Math.abs(fromRank - toRank);
+    
+    return (fileDiff === 2 && rankDiff === 1) || (fileDiff === 1 && rankDiff === 2);
+}
+
+function isValidBishopMove(from, to) {
+    const fromFile = from.charCodeAt(0);
+    const fromRank = parseInt(from[1]);
+    const toFile = to.charCodeAt(0);
+    const toRank = parseInt(to[1]);
+    
+    // Movimento diagonal
+    if (Math.abs(fromFile - toFile) !== Math.abs(fromRank - toRank)) return false;
+    
+    return isPathClear(from, to);
+}
+
+function isValidQueenMove(from, to) {
+    return isValidRookMove(from, to) || isValidBishopMove(from, to);
+}
+
+function isValidKingMove(from, to) {
+    const fromFile = from.charCodeAt(0);
+    const fromRank = parseInt(from[1]);
+    const toFile = to.charCodeAt(0);
+    const toRank = parseInt(to[1]);
+    
+    const fileDiff = Math.abs(fromFile - toFile);
+    const rankDiff = Math.abs(fromRank - toRank);
+    
+    return fileDiff <= 1 && rankDiff <= 1;
+}
+
+function isPathClear(from, to) {
+    const fromFile = from.charCodeAt(0);
+    const fromRank = parseInt(from[1]);
+    const toFile = to.charCodeAt(0);
+    const toRank = parseInt(to[1]);
+    
+    const fileDir = toFile > fromFile ? 1 : toFile < fromFile ? -1 : 0;
+    const rankDir = toRank > fromRank ? 1 : toRank < fromRank ? -1 : 0;
+    
+    let currentFile = fromFile + fileDir;
+    let currentRank = fromRank + rankDir;
+    
+    while (currentFile !== toFile || currentRank !== toRank) {
+        const square = String.fromCharCode(currentFile) + currentRank;
+        if (currentPosition[square]) return false;
+        
+        currentFile += fileDir;
+        currentRank += rankDir;
+    }
+    
+    return true;
+}
+
+// ================ FUNÇÕES AUXILIARES =================
+function getPieceName(piece) {
+    const names = {
+        'wK': 'Rei Branco', 'wQ': 'Dama Branca', 'wR': 'Torre Branca',
+        'wB': 'Bispo Branco', 'wN': 'Cavalo Branco', 'wP': 'Peão Branco',
+        'bK': 'Rei Preto', 'bQ': 'Dama Preta', 'bR': 'Torre Preta',
+        'bB': 'Bispo Preto', 'bN': 'Cavalo Preto', 'bP': 'Peão Preto'
+    };
+    return names[piece] || piece;
+}
+
+function showValidMoves(square) {
+    clearValidMoves();
+    
+    const piece = currentPosition[square];
+    if (!piece) return;
+    
+    // Mostrar todas as casas válidas para esta peça
+    for (let rank = 1; rank <= 8; rank++) {
+        for (let file = 0; file < 8; file++) {
+            const targetSquare = String.fromCharCode(97 + file) + rank;
+            if (targetSquare !== square && isValidMove(square, targetSquare)) {
+                const squareElement = document.querySelector(`[data-square="${targetSquare}"]`);
+                if (squareElement) {
+                    squareElement.classList.add('valid-move');
+                }
+            }
+        }
+    }
+}
+
+function clearValidMoves() {
+    document.querySelectorAll('.valid-move').forEach(square => {
+        square.classList.remove('valid-move');
+    });
+}
+
+function convertToStandardNotation(from, to, piece) {
+    const pieceSymbols = { 'K': 'K', 'Q': 'Q', 'R': 'R', 'B': 'B', 'N': 'N', 'P': '' };
+    const pieceType = piece[1];
+    const symbol = pieceSymbols[pieceType];
+    
+    // Para peões, usar apenas o destino se não for captura
+    if (pieceType === 'P') {
+        const targetPiece = currentPosition[to];
+        if (targetPiece) {
+            // Captura de peão - incluir coluna de origem
+            return from[0] + 'x' + to;
+        } else {
+            return to;
+        }
+    }
+    
+    // Para outras peças
+    const targetPiece = currentPosition[to];
+    const capture = targetPiece ? 'x' : '';
+    
+    return symbol + capture + to;
+}
+
+function makeMove(from, to) {
+    if (currentPosition[from]) {
+        // Registrar movimento
+        const piece = currentPosition[from];
+        const standardNotation = convertToStandardNotation(from, to, piece);
+        const captured = currentPosition[to];
+        
+        lastMove = {
+            from: from,
+            to: to,
+            piece: piece,
+            notation: standardNotation,
+            captured: captured
+        };
+        
+        // Atualizar posição
+        currentPosition[to] = currentPosition[from];
+        delete currentPosition[from];
+        
+        // Adicionar ao histórico
+        moveHistory.push(lastMove);
+        updateMoveHistory();
+        
+        // Análise em tempo real do movimento
+        analyzeMove(lastMove);
+        
+        // Habilitar botão de verificação
+        document.getElementById('verify-solution').disabled = false;
+        document.getElementById('ask-enemy-response').style.display = 'inline-block';
+        
+        renderExerciseBoard();
+    }
+}
+
+function analyzeMove(move) {
+    const piece = move.piece;
+    const from = move.from;
+    const to = move.to;
+    const captured = move.captured;
+    
+    let analysis = `${getPieceName(piece)} de ${from} para ${to}`;
+    
+    if (captured) {
+        analysis += ` (capturou ${getPieceName(captured)})`;
+    }
+    
+    // Verificar se é um xeque
+    if (isKingInCheck('b')) {
+        analysis += ' - XEQUE!';
+    }
+    
+    // Verificar se é uma tática especial
+    const tacticType = detectTactic(move);
+    if (tacticType) {
+        analysis += ` - ${tacticType}`;
+    }
+    
+    updateStatus(analysis);
+}
+
+function detectTactic(move) {
+    const piece = move.piece;
+    const to = move.to;
+    
+    // Detectar alguns padrões táticos básicos
+    if (piece[1] === 'N') { // Cavalo
+        let attacks = 0;
+        const attackedPieces = [];
+        
+        // Verificar todas as casas que o cavalo ataca
+        for (let rank = 1; rank <= 8; rank++) {
+            for (let file = 0; file < 8; file++) {
+                const square = String.fromCharCode(97 + file) + rank;
+                if (isValidKnightMove(to, square) && currentPosition[square] && 
+                    currentPosition[square][0] !== piece[0]) {
+                    attacks++;
+                    attackedPieces.push(currentPosition[square]);
+                }
+            }
+        }
+        
+        if (attacks >= 2) {
+            const hasKing = attackedPieces.some(p => p[1] === 'K');
+            const hasQueen = attackedPieces.some(p => p[1] === 'Q');
+            
+            if (hasKing && hasQueen) return 'GARFO REAL!';
+            if (hasKing) return 'XEQUE COM GARFO!';
+            if (attacks >= 2) return 'GARFO DUPLO!';
+        }
+    }
+    
+    return null;
+}
+
+function isKingInCheck(color) {
+    // Encontrar o rei da cor especificada
+    let kingSquare = null;
+    for (const square in currentPosition) {
+        const piece = currentPosition[square];
+        if (piece === color + 'K') {
+            kingSquare = square;
+            break;
+        }
+    }
+    
+    if (!kingSquare) return false;
+    
+    // Verificar se alguma peça adversária ataca o rei
+    for (const square in currentPosition) {
+        const piece = currentPosition[square];
+        if (piece[0] !== color && isValidMove(square, kingSquare)) {
+            return true;
+        }
+    }
+    
+    return false;
+}
+
+function clearSelection() {
+    selectedSquare = null;
+    document.querySelectorAll('.chess-square').forEach(square => {
+        square.classList.remove('selected');
+    });
+    clearValidMoves();
+}
+
+function setupEventListeners() {
+    document.getElementById('reset-position').addEventListener('click', resetPosition);
+    document.getElementById('show-hint').addEventListener('click', showHint);
+    document.getElementById('verify-solution').addEventListener('click', verifySolution);
+    document.getElementById('ask-enemy-response').addEventListener('click', askEnemyResponse);
+}
+
+function resetPosition() {
+    currentPosition = {...exerciseData.initialPosition};
+    moveHistory = [];
+    lastMove = null;
+    clearSelection();
+    updateMoveHistory();
+    updateStatus('Posição resetada');
+    document.getElementById('verify-solution').disabled = true;
+    document.getElementById('ask-enemy-response').style.display = 'none';
+    document.getElementById('enemy-analysis').style.display = 'none';
+    renderExerciseBoard();
+}
+
+function showHint() {
+    updateStatus(`💡 Dica: ${exerciseData.hint}`);
+}
+
+function verifySolution() {
+    if (!lastMove) {
+        updateStatus('⚠️ Faça um movimento primeiro');
+        return;
+    }
+    
+    // Usar a notação padrão do movimento
+    const userMove = lastMove.notation;
+    
+    fetch('/exercicios/verificar', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            exercicio_id: exerciseData.id,
+            lance: userMove
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.correto) {
+            showResultModal(true, data);
+            // Salvar no localStorage
+            localStorage.setItem(`exercise_${exerciseData.id}_solved`, 'true');
+        } else {
+            showResultModal(false, data);
+        }
+    })
+    .catch(error => {
+        console.error('Erro:', error);
+        updateStatus('❌ Erro ao verificar solução');
+    });
+}
+
+function askEnemyResponse() {
+    if (!lastMove) {
+        updateStatus('⚠️ Faça um movimento primeiro');
+        return;
+    }
+    
+    updateStatus('🧠 Analisando resposta do adversário...');
+    
+    fetch('/exercicios/resposta_inimigo', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            posicao: JSON.stringify(currentPosition),
+            lance: lastMove.notation,
+            tipo_tatica: exerciseData.tacticType
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        document.getElementById('enemy-analysis').style.display = 'block';
+        document.getElementById('enemy-response').innerHTML = 
+            `<div class="enemy-response-content">
+                <div class="response-header">
+                    <i class="fas fa-chess-king"></i>
+                    <strong>Resposta do Adversário:</strong>
+                </div>
+                <p>${data.resposta}</p>
+            </div>`;
+        updateStatus('✅ Análise do adversário disponível');
+    })
+    .catch(error => {
+        console.error('Erro:', error);
+        updateStatus('❌ Erro ao obter resposta do adversário');
+    });
+}
+
+function updateStatus(message) {
+    document.getElementById('current-status').innerHTML = `<p>${message}</p>`;
+}
+
+function updateMoveHistory() {
+    const historyDiv = document.getElementById('move-history');
+    if (moveHistory.length === 0) {
+        historyDiv.innerHTML = '<p class="no-moves">Nenhum movimento ainda</p>';
+    } else {
+        historyDiv.innerHTML = moveHistory.map((move, index) => 
+            `<div class="move-item">
+                <span class="move-number">${index + 1}.</span>
+                <span class="move-notation">${move.notation}</span>
+            </div>`
+        ).join('');
+    }
+}
+
+function showResultModal(correct, data) {
+    const modal = document.getElementById('result-modal');
+    const title = document.getElementById('result-title');
+    const content = document.getElementById('result-content');
+    const chessBoard = document.querySelector('.chess-board');
+    
+    if (correct) {
+        title.innerHTML = '<i class="fas fa-trophy"></i> Parabéns! Solução Correta!';
+        content.innerHTML = `
+            <div class="success-content">
+                <div class="points-earned">
+                    <i class="fas fa-star"></i>
+                    <span>+${data.pontos} pontos</span>
+                </div>
+                <div class="explanation">
+                    <h4>Explicação da Solução:</h4>
+                    <p>${data.explicacao}</p>
+                </div>
+                <div class="tactic-learned">
+                    <strong>Tática: ${data.tipo_tatica}</strong>
+                </div>
+            </div>
+        `;
+        
+        // Animação de sucesso melhorada
+        chessBoard.classList.add('result-success');
+        updateStatus('✅ CORRETO! Parabéns!');
+        
+        // Adicionar efeito de celebração
+        createSuccessAnimation();
+        
+        // Confetti animation
+        setTimeout(() => {
+            chessBoard.classList.remove('result-success');
+        }, 3000);
+        
+    } else {
+        title.innerHTML = '<i class="fas fa-times-circle"></i> Não é a melhor solução';
+        content.innerHTML = `
+            <div class="error-content">
+                <div class="hint-section">
+                    <h4>💡 Dica:</h4>
+                    <p>${data.dica}</p>
+                </div>
+                <div class="try-again">
+                    <p>Tente novamente! A resposta correta é: <strong>${data.melhor_lance}</strong></p>
+                </div>
+            </div>
+        `;
+        
+        // Animação de erro melhorada
+        chessBoard.classList.add('result-error');
+        updateStatus('❌ INCORRETO! Tente novamente.');
+        
+        // Adicionar efeito de shake
+        createErrorAnimation();
+        
+        setTimeout(() => {
+            chessBoard.classList.remove('result-error');
+        }, 3000);
+    }
+    
+    modal.style.display = 'flex';
+}
+
+function closeResultModal() {
+    document.getElementById('result-modal').style.display = 'none';
+}
+
+// Funções de animação melhoradas
+function createSuccessAnimation() {
+    // Criar partículas de comemoração
+    const container = document.querySelector('.chess-container');
+    for (let i = 0; i < 20; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'success-particle';
+        particle.style.cssText = `
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: linear-gradient(45deg, #28a745, #20c997);
+            border-radius: 50%;
+            animation: particleSuccess 2s ease-out forwards;
+            left: ${Math.random() * 100}%;
+            top: ${Math.random() * 100}%;
+            z-index: 1000;
+        `;
+        container.appendChild(particle);
+        
+        setTimeout(() => {
+            if (particle && particle.parentNode) {
+                particle.parentNode.removeChild(particle);
+            }
+        }, 2000);
+    }
+    
+    // Feedback sonoro visual
+    const statusDiv = document.getElementById('current-status');
+    statusDiv.classList.add('status-success-animation');
+    setTimeout(() => {
+        statusDiv.classList.remove('status-success-animation');
+    }, 1500);
+}
+
+function createErrorAnimation() {
+    // Shake animation para o tabuleiro
+    const board = document.getElementById('exercise-board');
+    board.classList.add('shake-animation');
+    
+    setTimeout(() => {
+        board.classList.remove('shake-animation');
+    }, 600);
+    
+    // Feedback visual no status
+    const statusDiv = document.getElementById('current-status');
+    statusDiv.classList.add('status-error-animation');
+    setTimeout(() => {
+        statusDiv.classList.remove('status-error-animation');
+    }, 1500);
+}
+</script>
+
+<style>
+.solve-exercise-section {
+    padding: 1rem 0;
+}
+
+.exercise-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.exercise-title h1 {
+    color: #dc3545;
+    margin-bottom: 0.5rem;
+}
+
+.exercise-meta {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.exercise-instructions {
+    background: rgba(30, 30, 30, 0.8);
+    padding: 1.5rem;
+    border-radius: 12px;
+    border: 1px solid rgba(220, 53, 69, 0.2);
+    margin-bottom: 2rem;
+}
+
+.exercise-instructions h3 {
+    color: #dc3545;
+    margin-bottom: 1rem;
+}
+
+.instruction-steps ol {
+    color: #d0d0d0;
+    margin: 1rem 0;
+}
+
+.exercise-main {
+    display: grid;
+    grid-template-columns: 1fr 350px;
+    gap: 2rem;
+    align-items: start;
+}
+
+.chess-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.chess-board {
+    display: grid;
+    grid-template-columns: repeat(8, 60px);
+    grid-template-rows: repeat(8, 60px);
+    border: 3px solid #dc3545;
+    border-radius: 8px;
+    background: #333;
+}
+
+.chess-square {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+}
+
+.chess-square.light {
+    background-color: #f0d9b5;
+    color: #333;
+}
+
+.chess-square.dark {
+    background-color: #b58863;
+    color: #fff;
+}
+
+.chess-square:hover {
+    box-shadow: inset 0 0 10px rgba(220, 53, 69, 0.5);
+}
+
+.chess-square.selected {
+    box-shadow: inset 0 0 15px rgba(220, 53, 69, 0.8);
+    border: 2px solid #dc3545;
+}
+
+.chess-square.valid-move {
+    box-shadow: inset 0 0 10px rgba(40, 167, 69, 0.6);
+    border: 2px dotted #28a745;
+}
+
+.chess-square.valid-move:hover {
+    box-shadow: inset 0 0 15px rgba(40, 167, 69, 0.8);
+    border: 2px solid #28a745;
+}
+
+/* Animações de resultado */
+.chess-board.result-success {
+    animation: successPulse 0.8s ease-in-out 2;
+    border: 3px solid #28a745;
+    box-shadow: 0 0 20px rgba(40, 167, 69, 0.8);
+}
+
+.chess-board.result-error {
+    animation: errorShake 0.6s ease-in-out 2;
+    border: 3px solid #dc3545;
+    box-shadow: 0 0 20px rgba(220, 53, 69, 0.8);
+}
+
+@keyframes successPulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.02); }
+    100% { transform: scale(1); }
+}
+
+@keyframes errorShake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+}
+
+/* Informações do exercício */
+.exercise-info {
+    display: flex;
+    gap: 1rem;
+    margin: 0.5rem 0;
+    flex-wrap: wrap;
+}
+
+.exercise-info span {
+    background: rgba(0, 0, 0, 0.1);
+    padding: 0.3rem 0.6rem;
+    border-radius: 15px;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.move-count {
+    background: rgba(255, 193, 7, 0.2) !important;
+    color: #856404;
+}
+
+.difficulty {
+    background: rgba(108, 117, 125, 0.2) !important;
+    color: #495057;
+}
+
+.points {
+    background: rgba(255, 193, 7, 0.2) !important;
+    color: #856404;
+}
+
+.rank-label, .file-label {
+    position: absolute;
+    color: #dc3545 !important;
+    font-size: 10px !important;
+    font-weight: bold !important;
+    z-index: 1;
+}
+
+.rank-label {
+    top: 2px;
+    left: 2px;
+}
+
+.file-label {
+    bottom: 2px;
+    right: 2px;
+}
+
+.chess-controls {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.control-group {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.exercise-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.status-panel, .moves-panel, .enemy-analysis {
+    background: rgba(20, 20, 20, 0.8);
+    border: 1px solid rgba(220, 53, 69, 0.2);
+    border-radius: 12px;
+    padding: 1rem;
+}
+
+.status-panel h4, .moves-panel h4, .enemy-analysis h4 {
+    color: #dc3545;
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+}
+
+#current-status p {
+    color: #e0e0e0;
+    margin: 0;
+}
+
+.move-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.25rem 0;
+    color: #d0d0d0;
+}
+
+.move-number {
+    font-weight: bold;
+    color: #dc3545;
+    min-width: 20px;
+}
+
+.no-moves {
+    color: #888;
+    font-style: italic;
+    margin: 0;
+}
+
+.enemy-response-content {
+    color: #d0d0d0;
+}
+
+.response-header {
+    color: #dc3545;
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: rgba(25, 25, 25, 0.95);
+    border: 1px solid #dc3545;
+    border-radius: 12px;
+    max-width: 500px;
+    width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid rgba(220, 53, 69, 0.2);
+}
+
+.modal-header h3 {
+    color: #dc3545;
+    margin: 0;
+}
+
+.modal-close {
+    background: none;
+    border: none;
+    color: #dc3545;
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+.modal-body {
+    padding: 1.5rem;
+}
+
+.modal-footer {
+    padding: 1rem 1.5rem;
+    border-top: 1px solid rgba(220, 53, 69, 0.2);
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+}
+
+.success-content .points-earned {
+    background: rgba(40, 167, 69, 0.2);
+    border: 1px solid #28a745;
+    border-radius: 8px;
+    padding: 1rem;
+    text-align: center;
+    margin-bottom: 1rem;
+    color: #28a745;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.explanation {
+    margin: 1rem 0;
+    color: #d0d0d0;
+}
+
+.explanation h4 {
+    color: #dc3545;
+    margin-bottom: 0.5rem;
+}
+
+.tactic-learned {
+    background: rgba(220, 53, 69, 0.2);
+    border-radius: 8px;
+    padding: 1rem;
+    text-align: center;
+    color: #dc3545;
+}
+
+.error-content .hint-section {
+    background: rgba(255, 193, 7, 0.2);
+    border: 1px solid #ffc107;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+
+.error-content .hint-section h4 {
+    color: #ffc107;
+    margin-bottom: 0.5rem;
+}
+
+.try-again {
+    color: #d0d0d0;
+    text-align: center;
+}
+
+/* Estilos para feedback visual melhorado */
+.moves-needed-info {
+    background: rgba(0, 123, 255, 0.2);
+    border: 1px solid #007bff;
+    border-radius: 8px;
+    padding: 0.75rem;
+    margin-top: 1rem;
+    color: #007bff;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Animações de sucesso */
+.status-success-animation {
+    animation: successPulse 1.5s ease-in-out;
+    background: rgba(40, 167, 69, 0.3) !important;
+    border-radius: 8px;
+    border: 2px solid #28a745;
+}
+
+@keyframes successPulse {
+    0% { 
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(40, 167, 69, 0.7);
+    }
+    50% { 
+        transform: scale(1.05);
+        box-shadow: 0 0 20px 10px rgba(40, 167, 69, 0.3);
+    }
+    100% { 
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(40, 167, 69, 0);
+    }
+}
+
+@keyframes particleSuccess {
+    0% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-100px) scale(0);
+        opacity: 0;
+    }
+}
+
+/* Animações de erro */
+.status-error-animation {
+    animation: errorShake 1.5s ease-in-out;
+    background: rgba(220, 53, 69, 0.3) !important;
+    border-radius: 8px;
+    border: 2px solid #dc3545;
+}
+
+.shake-animation {
+    animation: shake 0.6s ease-in-out;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    10%, 30%, 50%, 70%, 90% { transform: translateX(-8px); }
+    20%, 40%, 60%, 80% { transform: translateX(8px); }
+}
+
+@keyframes errorShake {
+    0%, 100% { 
+        transform: translateX(0);
+        box-shadow: 0 0 0 0 rgba(220, 53, 69, 0.7);
+    }
+    25%, 75% { 
+        transform: translateX(-5px);
+        box-shadow: 0 0 15px 5px rgba(220, 53, 69, 0.3);
+    }
+    50% { 
+        transform: translateX(5px);
+        box-shadow: 0 0 15px 5px rgba(220, 53, 69, 0.3);
+    }
+}
+
+/* Melhorar animações de resultado do tabuleiro */
+.chess-board.result-success {
+    animation: boardSuccess 3s ease-in-out;
+    box-shadow: 0 0 30px rgba(40, 167, 69, 0.6);
+}
+
+.chess-board.result-error {
+    animation: boardError 3s ease-in-out;
+    box-shadow: 0 0 30px rgba(220, 53, 69, 0.6);
+}
+
+@keyframes boardSuccess {
+    0%, 100% { 
+        transform: scale(1); 
+        filter: hue-rotate(0deg);
+    }
+    50% { 
+        transform: scale(1.02); 
+        filter: hue-rotate(90deg) brightness(1.2);
+    }
+}
+
+@keyframes boardError {
+    0%, 100% { 
+        transform: scale(1); 
+        filter: hue-rotate(0deg);
+    }
+    50% { 
+        transform: scale(0.98); 
+        filter: hue-rotate(-30deg) brightness(0.8);
+    }
+}
+
+@media (max-width: 768px) {
+    .exercise-main {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .chess-board {
+        grid-template-columns: repeat(8, 45px);
+        grid-template-rows: repeat(8, 45px);
+    }
+    
+    .chess-square {
+        font-size: 1.5rem;
+    }
+    
+    .chess-controls {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .control-group {
+        justify-content: center;
+    }
+}
+</style>
+{% endblock %}

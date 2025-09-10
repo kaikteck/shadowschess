@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}In the Shadows - Estratégia{% endblock %}</title>
+    <link rel="icon" type="image/png" sizes="256x256" href="{{ url_for('static', filename='favicon.png') }}">
+    <link rel="shortcut icon" type="image/png" sizes="256x256" href="{{ url_for('static', filename='favicon.png') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <h2><i class="fas fa-chess-king"></i> In the Shadows</h2>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="{{ url_for('inicio') }}" class="nav-link"><i class="fas fa-home"></i> Início</a></li>
+                <li><a href="{{ url_for('teoria') }}" class="nav-link"><i class="fas fa-brain"></i> Teoria</a></li>
+                <li><a href="{{ url_for('exemplos') }}" class="nav-link"><i class="fas fa-lightbulb"></i> Exemplos</a></li>
+                <li><a href="{{ url_for('conceitos') }}" class="nav-link"><i class="fas fa-book"></i> Conceitos</a></li>
+                <li><a href="{{ url_for('fundamentos') }}" class="nav-link"><i class="fas fa-graduation-cap"></i> Fundamentos</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="flash-messages">
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }}">
+                            <i class="fas fa-info-circle"></i>
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Chat Button -->
+    <button class="chat-button" id="chatButton">
+        ♔
+        <div class="chat-button-tooltip">Rei do Mate</div>
+    </button>
+
+    <!-- Chat Modal Container -->
+    <div class="chat-container" id="chatContainer">
+        <div class="chat-header">
+            <h3><i class="fas fa-chess-king"></i> Rei do Mate</h3>
+            <div class="chat-header-buttons">
+                <button class="clear-chat" id="clearChatBtn" title="Limpar conversa">
+                    <i class="fas fa-trash"></i>
+                </button>
+                <button class="close-chat" id="closeChatBtn" title="Fechar chat">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="chat-messages" id="chatMessages">
+            <div class="message bot">
+                <div class="message-avatar bot">♔</div>
+                <div class="message-content">
+                    Olá! Eu sou o Rei do Mate, seu assistente de xadrez especializado na estratégia "In the Shadows". Como posso ajudar você hoje?
+                </div>
+            </div>
+        </div>
+
+        <div class="chat-input-container">
+            <textarea id="chatInput" placeholder="Digite sua pergunta sobre xadrez..." rows="1"></textarea>
+            <button class="send-button" id="sendButton">
+                <i class="fas fa-paper-plane"></i>
+            </button>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <p><i class="fas fa-copyright"></i> 2025 "In the Shadows" Strategy - Todos os direitos reservados</p>
+            <p>Criado por <strong>xKaike</strong> (chess.com) - Estratégia original e metodologia exclusiva</p>
+            <div class="footer-social">
+                <i class="fas fa-chess"></i>
+                <span>Laboratório de Estratégias de Xadrez</span>
+            </div>
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/chat.js') }}"></script>
+    {% block scripts %}{% endblock %}
+</body>
+</html>

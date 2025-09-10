@@ -1,0 +1,40 @@
+
+{% extends "base.html" %}
+
+{% block title %}Rei do Mate - Chat IA{% endblock %}
+
+{% block content %}
+<div class="chat-section">
+    <div class="section-header">
+        <h1><i class="fas fa-crown"></i> Rei do Mate</h1>
+        <p>Seu assistente pessoal de xadrez especializado em "In the Shadows"</p>
+    </div>
+
+    <div class="chat-container">
+        <div class="chat-messages" id="chatMessages">
+            <div class="message ai-message">
+                <div class="message-avatar">
+                    <i class="fas fa-crown"></i>
+                </div>
+                <div class="message-content">
+                    <strong>Rei do Mate:</strong> Olá! Sou seu assistente especializado em xadrez e na estratégia "In the Shadows". Como posso ajudá-lo hoje?
+                </div>
+            </div>
+        </div>
+
+        <div class="chat-input-container">
+            <div class="chat-input-wrapper">
+                <input type="text" id="chatInput" placeholder="Digite sua pergunta sobre xadrez..." maxlength="500">
+                <button id="sendButton" class="chat-send-btn">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+            <div class="chat-status" id="chatStatus"></div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/chat.js') }}"></script>
+{% endblock %}

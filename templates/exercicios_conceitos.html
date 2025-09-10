@@ -1,0 +1,1213 @@
+{% extends "base.html" %}
+
+{% block title %}Exercícios Táticos Interativos - In the Shadows{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/chess.js') }}"></script>
+{% endblock %}
+
+{% block content %}
+<div class="main-content">
+    <div class="container">
+        <div class="section-header">
+            <h1><i class="fas fa-dumbbell"></i> Exercícios Táticos Interativos</h1>
+            <p>Progressão de níveis para desenvolver suas habilidades táticas do básico ao mestre.</p>
+        </div>
+
+        <!-- Navegação de volta -->
+        <div class="back-navigation">
+            <a href="{{ url_for('conceitos') }}" class="btn btn-secondary">
+                <i class="fas fa-arrow-left"></i> Voltar para Conceitos
+            </a>
+        </div>
+
+        <!-- Progressão de Níveis -->
+        <div class="progression-container">
+            
+            <!-- Nível Iniciante (1-3) -->
+            <div class="level-section iniciante">
+                <div class="level-header">
+                    <h2><i class="fas fa-seedling"></i> Nível Iniciante (1-3)</h2>
+                    <p><strong>Objetivo:</strong> Desenvolver percepção de padrões, reconhecimento de oportunidades simples e noções básicas de estratégia.</p>
+                </div>
+
+                <div class="exercises-grid">
+                    <!-- Exercício 1: Captura Simples -->
+                    <div class="exercise-card tactical-exercise">
+                        <div class="exercise-header">
+                            <h3><i class="fas fa-target"></i> 1. Captura Simples</h3>
+                            <div class="difficulty-badge iniciante">
+                                <i class="fas fa-star"></i> Iniciante
+                            </div>
+                        </div>
+                        
+                        <div class="exercise-content">
+                            <div class="objective">
+                                <h4><i class="fas fa-bullseye"></i> Objetivo:</h4>
+                                <p>Reconhecer peças vulneráveis.</p>
+                            </div>
+
+                            <div class="activity">
+                                <h4><i class="fas fa-gamepad"></i> Atividade:</h4>
+                                <p>Coloque 5 peças no tabuleiro e identifique todas as peças que podem ser capturadas no próximo lance.</p>
+                            </div>
+
+                            <div class="evolution">
+                                <h4><i class="fas fa-chart-line"></i> Evolução:</h4>
+                                <p>Ajuda a desenvolver atenção para oportunidades imediatas.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Exercício 2: Movimento Seguro -->
+                    <div class="exercise-card tactical-exercise">
+                        <div class="exercise-header">
+                            <h3><i class="fas fa-shield-alt"></i> 2. Movimento Seguro</h3>
+                            <div class="difficulty-badge iniciante">
+                                <i class="fas fa-star"></i> Iniciante
+                            </div>
+                        </div>
+                        
+                        <div class="exercise-content">
+                            <div class="objective">
+                                <h4><i class="fas fa-bullseye"></i> Objetivo:</h4>
+                                <p>Aprender a proteger suas peças.</p>
+                            </div>
+
+                            <div class="activity">
+                                <h4><i class="fas fa-gamepad"></i> Atividade:</h4>
+                                <p>Monte posições onde uma peça está em risco e desafie a movê-la para um local seguro sem perder material.</p>
+                            </div>
+
+                            <div class="evolution">
+                                <h4><i class="fas fa-chart-line"></i> Evolução:</h4>
+                                <p>Desenvolve a noção de defesa e posicionamento.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Exercício 3: Reconhecimento de Ataque Duplo -->
+                    <div class="exercise-card tactical-exercise">
+                        <div class="exercise-header">
+                            <h3><i class="fas fa-crosshairs"></i> 3. Reconhecimento de Ataque Duplo</h3>
+                            <div class="difficulty-badge iniciante">
+                                <i class="fas fa-star"></i> Iniciante
+                            </div>
+                        </div>
+                        
+                        <div class="exercise-content">
+                            <div class="objective">
+                                <h4><i class="fas fa-bullseye"></i> Objetivo:</h4>
+                                <p>Identificar ameaças múltiplas.</p>
+                            </div>
+
+                            <div class="activity">
+                                <h4><i class="fas fa-gamepad"></i> Atividade:</h4>
+                                <p>Crie uma posição simples onde uma peça pode atacar duas peças adversárias ao mesmo tempo. Pergunte: "Qual é o melhor lance?"</p>
+                            </div>
+
+                            <div class="evolution">
+                                <h4><i class="fas fa-chart-line"></i> Evolução:</h4>
+                                <p>Introduz conceitos de ataque duplo, fundamental para enxadristas iniciantes.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Exercício 4: Captura Simples - COM TABULEIRO -->
+                    <div class="exercise-card tactical-exercise">
+                        <div class="exercise-header">
+                            <h3><i class="fas fa-chess-board"></i> 4. Captura Simples - Puzzle Visual</h3>
+                            <div class="difficulty-badge iniciante">
+                                <i class="fas fa-chess"></i> Com Tabuleiro
+                            </div>
+                        </div>
+                        
+                        <div class="exercise-content">
+                            <div class="puzzle-questions">
+                                <div class="objective">
+                                    <h4><i class="fas fa-bullseye"></i> Objetivo do Puzzle:</h4>
+                                    <p>Nesta posição simples, as brancas podem capturar uma peça preta. Encontre a melhor captura que ganhe material.</p>
+                                </div>
+                                <div class="puzzle-context">
+                                    <h4><i class="fas fa-history"></i> Contexto:</h4>
+                                    <p>Posição básica de meio-jogo onde o bispo branco em c4 pode capturar o cavalo desprotegido em f7.</p>
+                                </div>
+                                <div class="analysis-suggestion">
+                                    <h4><i class="fas fa-lightbulb"></i> Dicas para Análise:</h4>
+                                    <ul>
+                                        <li><strong>Procure peças desprotegidas:</strong> Qual peça preta não tem defesa?</li>
+                                        <li><strong>Verifique se é seguro:</strong> A captura está protegida?</li>
+                                        <li><strong>Conta o material:</strong> Vale a pena a troca?</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="visual-board-section">
+                                <div class="board-header">
+                                    <h4><i class="fas fa-chess-board"></i> Posição para Análise</h4>
+                                    <div class="position-info">
+                                        <p><strong>Lado a jogar:</strong> Brancas | <strong>FEN:</strong> r1bqk2r/pppp1npp/2n5/2b1p3/2B1P3/3P1N2/PPP2PPP/RNBQK2R w KQkq - 0 8</p>
+                                    </div>
+                                </div>
+                                <div class="exercise-board-container">
+                                    <div id="exerciseConceito1-board" class="exercise-chess-board"></div>
+                                </div>
+                            </div>
+                            <div class="evolution">
+                                <h4><i class="fas fa-chart-line"></i> Solução e Evolução:</h4>
+                                <div class="solution-text">
+                                    <p><strong>Resposta:</strong> Bxf7+! O bispo captura o cavalo com xeque, ganhando material.</p>
+                                    <p><strong>Aprendizado:</strong> Ajuda a desenvolver percepção visual de oportunidades táticas básicas.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Exercício 5: Movimento Seguro - COM TABULEIRO -->
+                    <div class="exercise-card tactical-exercise">
+                        <div class="exercise-header">
+                            <h3><i class="fas fa-chess-board"></i> 5. Movimento Seguro - Puzzle Visual</h3>
+                            <div class="difficulty-badge iniciante">
+                                <i class="fas fa-chess"></i> Com Tabuleiro
+                            </div>
+                        </div>
+                        
+                        <div class="exercise-content">
+                            <div class="puzzle-questions">
+                                <div class="objective">
+                                    <h4><i class="fas fa-bullseye"></i> Objetivo do Puzzle:</h4>
+                                    <p>O cavalo branco em e4 está sendo atacado pela torre preta. Encontre o melhor quadrado seguro para mover o cavalo.</p>
+                                </div>
+                                <div class="puzzle-context">
+                                    <h4><i class="fas fa-history"></i> Contexto:</h4>
+                                    <p>Posição de meio-jogo onde as pretas acabaram de jogar Te8, atacando o cavalo centralizador.</p>
+                                </div>
+                                <div class="analysis-suggestion">
+                                    <h4><i class="fas fa-lightbulb"></i> Dicas para Análise:</h4>
+                                    <ul>
+                                        <li><strong>Avalie todas as opções:</strong> Para onde o cavalo pode ir?</li>
+                                        <li><strong>Verifique segurança:</strong> Quais casas não são atacadas?</li>
+                                        <li><strong>Mantenha atividade:</strong> Qual posição mantém o cavalo ativo?</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="visual-board-section">
+                                <div class="board-header">
+                                    <h4><i class="fas fa-chess-board"></i> Posição para Análise</h4>
+                                    <div class="position-info">
+                                        <p><strong>Lado a jogar:</strong> Brancas | <strong>FEN:</strong> r1bqr1k1/pppp1ppp/2n2n2/2b1p3/4N3/2NP1B2/PPP1PPPP/R2QKB1R w KQ - 0 9</p>
+                                    </div>
+                                </div>
+                                <div class="exercise-board-container">
+                                    <div id="exerciseConceito2-board" class="exercise-chess-board"></div>
+                                </div>
+                            </div>
+                            <div class="evolution">
+                                <h4><i class="fas fa-chart-line"></i> Solução e Evolução:</h4>
+                                <div class="solution-text">
+                                    <p><strong>Resposta:</strong> Ng5! O cavalo vai para g5, mantendo pressão e ficando seguro.</p>
+                                    <p><strong>Aprendizado:</strong> Desenvolve consciência de segurança e posicionamento ativo das peças.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Exercício 6: Reconhecimento de Ataque Duplo - COM TABULEIRO -->
+                    <div class="exercise-card tactical-exercise">
+                        <div class="exercise-header">
+                            <h3><i class="fas fa-chess-board"></i> 6. Ataque Duplo Visual</h3>
+                            <div class="difficulty-badge iniciante">
+                                <i class="fas fa-chess"></i> Com Tabuleiro
+                            </div>
+                        </div>
+                        
+                        <div class="exercise-content">
+                            <div class="puzzle-questions">
+                                <div class="objective">
+                                    <h4><i class="fas fa-bullseye"></i> Objetivo do Puzzle:</h4>
+                                    <p>As brancas podem fazer um movimento que ataca duas peças pretas ao mesmo tempo. Encontre este ataque duplo.</p>
+                                </div>
+
+                                <div class="puzzle-context">
+                                    <h4><i class="fas fa-history"></i> Contexto:</h4>
+                                    <p>Posição típica onde o cavalo branco pode criar um "garfo" atacando rei e torre simultaneamente.</p>
+                                </div>
+
+                                <div class="analysis-suggestion">
+                                    <h4><i class="fas fa-lightbulb"></i> Dicas para Análise:</h4>
+                                    <ul>
+                                        <li><strong>Procure saltos de cavalo:</strong> De onde o cavalo pode atacar duas peças?</li>
+                                        <li><strong>Identifique alvos:</strong> Que duas peças podem ser atacadas juntas?</li>
+                                        <li><strong>Confirme o xeque:</strong> O ataque ao rei força a resposta?</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <!-- Tabuleiro Visual -->
+                            <div class="visual-board-section">
+                                <div class="board-header">
+                                    <h4><i class="fas fa-chess-board"></i> Posição para Análise</h4>
+                                    <div class="position-info">
+                                        <p><strong>Lado a jogar:</strong> Brancas | <strong>FEN:</strong> r3k2r/ppp2ppp/2n1pn2/2bp4/2PP4/2N2N2/PP2PPPP/R1B1K2R w KQkq - 0 10</p>
+                                    </div>
+                                </div>
+                                <div class="exercise-board-container">
+                                    <div id="exerciseConceito3-board" class="exercise-chess-board"></div>
+                                </div>
+                            </div>
+
+                            <div class="evolution">
+                                <h4><i class="fas fa-chart-line"></i> Solução e Evolução:</h4>
+                                <div class="solution-text">
+                                    <p><strong>Resposta:</strong> Nd5! O cavalo ataca o bispo em d5 e cria ameaças múltiplas.</p>
+                                    <p><strong>Aprendizado:</strong> Introduz o conceito fundamental de ataque duplo - base de muitas táticas avançadas.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Nível Intermediário (4-6) -->
+            <div class="level-section intermediario">
+                <div class="level-header">
+                    <h2><i class="fas fa-chess-knight"></i> Nível Intermediário (4-6)</h2>
+                    <p><strong>Objetivo:</strong> Desenvolver visão estratégica, cálculo de lances e antecipação do adversário.</p>
+                </div>
+
+                <div class="exercises-grid">
+                    <!-- Exercício 4: Cadeia de Capturas -->
+                    <div class="exercise-card tactical-exercise">
+                        <div class="exercise-header">
+                            <h3><i class="fas fa-link"></i> 4. Cadeia de Capturas</h3>
+                            <div class="difficulty-badge intermediario">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i> Intermediário
+                            </div>
+                        </div>
+                        
+                        <div class="exercise-content">
+                            <div class="objective">
+                                <h4><i class="fas fa-bullseye"></i> Objetivo:</h4>
+                                <p>Planejar sequências de lances.</p>
+                            </div>
+
+                            <div class="activity">
+                                <h4><i class="fas fa-gamepad"></i> Atividade:</h4>
+                                <p>Monte uma posição onde o jogador pode capturar várias peças em sequência. Calcule a melhor sequência.</p>
+                            </div>
+
+                            <div class="evolution">
+                                <h4><i class="fas fa-chart-line"></i> Evolução:</h4>
+                                <p>Treina planejamento tático e visão de múltiplos lances.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Exercício 5: Tática do Garfo -->
+                    <div class="exercise-card tactical-exercise">
+                        <div class="exercise-header">
+                            <h3><i class="fas fa-chess-knight"></i> 5. Tática do Garfo</h3>
+                            <div class="difficulty-badge intermediario">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i> Intermediário
+                            </div>
+                        </div>
+                        
+                        <div class="exercise-content">
+                            <div class="objective">
+                                <h4><i class="fas fa-bullseye"></i> Objetivo:</h4>
+                                <p>Identificar garfos e ameaças simultâneas.</p>
+                            </div>
+
+                            <div class="activity">
+                                <h4><i class="fas fa-gamepad"></i> Atividade:</h4>
+                                <p>Crie uma posição com cavalo ou peça menor que possa ameaçar duas peças ao mesmo tempo. Encontre o lance correto.</p>
+                            </div>
+
+                            <div class="evolution">
+                                <h4><i class="fas fa-chart-line"></i> Evolução:</h4>
+                                <p>Desenvolve percepção de oportunidades para ganhar material.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Exercício 6: Defesa Ativa -->
+                    <div class="exercise-card tactical-exercise">
+                        <div class="exercise-header">
+                            <h3><i class="fas fa-shield-alt"></i> 6. Defesa Ativa</h3>
+                            <div class="difficulty-badge intermediario">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i> Intermediário
+                            </div>
+                        </div>
+                        
+                        <div class="exercise-content">
+                            <div class="objective">
+                                <h4><i class="fas fa-bullseye"></i> Objetivo:</h4>
+                                <p>Contratacar enquanto protege.</p>
+                            </div>
+
+                            <div class="activity">
+                                <h4><i class="fas fa-gamepad"></i> Atividade:</h4>
+                                <p>Coloque uma peça em risco e encontre um lance que defenda a peça e crie uma ameaça ao adversário.</p>
+                            </div>
+
+                            <div class="evolution">
+                                <h4><i class="fas fa-chart-line"></i> Evolução:</h4>
+                                <p>Ensina a combinar defesa e ataque, aumentando a compreensão do tabuleiro.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Exercício 7: Cadeia de Capturas - COM TABULEIRO -->
+                    <div class="exercise-card tactical-exercise">
+                        <div class="exercise-header">
+                            <h3><i class="fas fa-chess-board"></i> 7. Sequência de Capturas</h3>
+                            <div class="difficulty-badge intermediario">
+                                <i class="fas fa-chess"></i> Com Tabuleiro
+                            </div>
+                        </div>
+                        
+                        <div class="exercise-content">
+                            <div class="puzzle-questions">
+                                <div class="objective">
+                                    <h4><i class="fas fa-bullseye"></i> Objetivo do Puzzle:</h4>
+                                    <p>As brancas podem iniciar uma sequência forçada de capturas. Calcule a melhor sequência para ganhar material.</p>
+                                </div>
+
+                                <div class="puzzle-context">
+                                    <h4><i class="fas fa-history"></i> Contexto:</h4>
+                                    <p>Posição de meio-jogo onde várias peças estão expostas. A sequência correta de capturas é crucial.</p>
+                                </div>
+
+                                <div class="analysis-suggestion">
+                                    <h4><i class="fas fa-lightbulb"></i> Dicas para Análise:</h4>
+                                    <ul>
+                                        <li><strong>Calcule todas as recapturas:</strong> Que peças podem recapturar?</li>
+                                        <li><strong>Conte o material:</strong> Qual lado sai com vantagem?</li>
+                                        <li><strong>Ordem das capturas:</strong> Que ordem maximiza o ganho?</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="visual-board-section">
+                                <div class="board-header">
+                                    <h4><i class="fas fa-chess-board"></i> Posição para Análise</h4>
+                                    <div class="position-info">
+                                        <p><strong>Lado a jogar:</strong> Brancas</p>
+                                        <p><strong>FEN:</strong> r2q1rk1/ppp2ppp/2n1bn2/2bpp3/2PP4/2NBPN2/PP3PPP/R1BQ1RK1 w - - 0 12</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="exercise-board-container">
+                                    <div id="exerciseConceito4-board" class="exercise-chess-board"></div>
+                                </div>
+                            </div>
+
+                            <div class="evolution">
+                                <h4><i class="fas fa-chart-line"></i> Solução e Evolução:</h4>
+                                <div class="solution-text">
+                                    <p><strong>Resposta:</strong> 1.Nxe5! Nxe5 2.dxe5 Bxd3 3.exf6, ganhando o bispo e controle central.</p>
+                                    <p><strong>Aprendizado:</strong> Desenvolve cálculo tático e avaliação de sequências complexas.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Exercício 8: Tática do Garfo - COM TABULEIRO -->
+                    <div class="exercise-card tactical-exercise">
+                        <div class="exercise-header">
+                            <h3><i class="fas fa-chess-board"></i> 8. Garfo de Cavalo</h3>
+                            <div class="difficulty-badge intermediario">
+                                <i class="fas fa-chess"></i> Com Tabuleiro
+                            </div>
+                        </div>
+                        
+                        <div class="exercise-content">
+                            <div class="puzzle-questions">
+                                <div class="objective">
+                                    <h4><i class="fas fa-bullseye"></i> Objetivo do Puzzle:</h4>
+                                    <p>O cavalo branco pode criar um garfo devastador. Encontre o salto que ataca várias peças simultaneamente.</p>
+                                </div>
+
+                                <div class="puzzle-context">
+                                    <h4><i class="fas fa-history"></i> Contexto:</h4>
+                                    <p>Posição típica onde o cavalo tem uma casa forte que pode explorar a má coordenação das peças pretas.</p>
+                                </div>
+
+                                <div class="analysis-suggestion">
+                                    <h4><i class="fas fa-lightbulb"></i> Dicas para Análise:</h4>
+                                    <ul>
+                                        <li><strong>Visualize os saltos:</strong> De onde o cavalo pode saltar?</li>
+                                        <li><strong>Identifique alvos múltiplos:</strong> Que peças podem ser atacadas juntas?</li>
+                                        <li><strong>Priorize ameaças:</strong> Qual alvo é mais importante?</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="visual-board-section">
+                                <div class="board-header">
+                                    <h4><i class="fas fa-chess-board"></i> Posição para Análise</h4>
+                                    <div class="position-info">
+                                        <p><strong>Lado a jogar:</strong> Brancas</p>
+                                        <p><strong>FEN:</strong> r1bq1rk1/pppp1ppp/2n5/2b1p2n/2B1P3/3P1N2/PPP2PPP/RNBQR1K1 w - - 0 10</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="exercise-board-container">
+                                    <div id="exerciseConceito5-board" class="exercise-chess-board"></div>
+                                </div>
+                            </div>
+
+                            <div class="evolution">
+                                <h4><i class="fas fa-chart-line"></i> Solução e Evolução:</h4>
+                                <div class="solution-text">
+                                    <p><strong>Resposta:</strong> Ng5! O cavalo ataca f7 e h7, criando ameaças múltiplas no rei preto.</p>
+                                    <p><strong>Aprendizado:</strong> Melhora a percepção de oportunidades táticas com cavalos.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Exercício 9: Defesa Ativa - COM TABULEIRO -->
+                    <div class="exercise-card tactical-exercise">
+                        <div class="exercise-header">
+                            <h3><i class="fas fa-chess-board"></i> 9. Contraataque Defensivo</h3>
+                            <div class="difficulty-badge intermediario">
+                                <i class="fas fa-chess"></i> Com Tabuleiro
+                            </div>
+                        </div>
+                        
+                        <div class="exercise-content">
+                            <div class="puzzle-questions">
+                                <div class="objective">
+                                    <h4><i class="fas fa-bullseye"></i> Objetivo do Puzzle:</h4>
+                                    <p>A torre branca está atacada, mas não precisa fugir. Encontre o lance que defende e contraataca.</p>
+                                </div>
+
+                                <div class="puzzle-context">
+                                    <h4><i class="fas fa-history"></i> Contexto:</h4>
+                                    <p>Situação onde a defesa passiva seria ruim. A melhor defesa é um ataque!</p>
+                                </div>
+
+                                <div class="analysis-suggestion">
+                                    <h4><i class="fas fa-lightbulb"></i> Dicas para Análise:</h4>
+                                    <ul>
+                                        <li><strong>Não fuja imediatamente:</strong> Há alguma ameaça que pode criar?</li>
+                                        <li><strong>Procure alvos:</strong> Que peças pretas estão vulneráveis?</li>
+                                        <li><strong>Balance defesa e ataque:</strong> Como fazer os dois simultaneamente?</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="visual-board-section">
+                                <div class="board-header">
+                                    <h4><i class="fas fa-chess-board"></i> Posição para Análise</h4>
+                                    <div class="position-info">
+                                        <p><strong>Lado a jogar:</strong> Brancas</p>
+                                        <p><strong>FEN:</strong> r1bq1rk1/ppp2ppp/2np1n2/2b1p3/2BPP3/2N2N2/PPP2PPP/R1BQR1K1 w - - 0 11</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="exercise-board-container">
+                                    <div id="exerciseConceito6-board" class="exercise-chess-board"></div>
+                                </div>
+                            </div>
+
+                            <div class="evolution">
+                                <h4><i class="fas fa-chart-line"></i> Solução e Evolução:</h4>
+                                <div class="solution-text">
+                                    <p><strong>Resposta:</strong> Bxf7+! O bispo se sacrifica forçando Kh8, depois Bd5 ataca múltiplas peças.</p>
+                                    <p><strong>Aprendizado:</strong> Ensina o conceito de defesa ativa e iniciativa.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Nível Avançado (7-9) -->
+            <div class="level-section avancado">
+                <div class="level-header">
+                    <h2><i class="fas fa-chess-queen"></i> Nível Avançado (7-9)</h2>
+                    <p><strong>Objetivo:</strong> Integrar visão tática e estratégica, calculando várias possibilidades e antecipando respostas do adversário.</p>
+                </div>
+
+                <div class="exercises-grid">
+                    <!-- Exercício 7: Sacrifício Planejado -->
+                    <div class="exercise-card tactical-exercise">
+                        <div class="exercise-header">
+                            <h3><i class="fas fa-fire"></i> 7. Sacrifício Planejado</h3>
+                            <div class="difficulty-badge avancado">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i> Avançado
+                            </div>
+                        </div>
+                        
+                        <div class="exercise-content">
+                            <div class="objective">
+                                <h4><i class="fas fa-bullseye"></i> Objetivo:</h4>
+                                <p>Treinar a tomada de decisão arriscada.</p>
+                            </div>
+
+                            <div class="activity">
+                                <h4><i class="fas fa-gamepad"></i> Atividade:</h4>
+                                <p>Monte uma posição onde sacrificar uma peça leva a vantagem significativa. Identifique se vale a pena.</p>
+                            </div>
+
+                            <div class="evolution">
+                                <h4><i class="fas fa-chart-line"></i> Evolução:</h4>
+                                <p>Desenvolve cálculo avançado e avaliação de riscos.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Exercício 8: Tática de Desvio -->
+                    <div class="exercise-card tactical-exercise">
+                        <div class="exercise-header">
+                            <h3><i class="fas fa-random"></i> 8. Tática de Desvio</h3>
+                            <div class="difficulty-badge avancado">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i> Avançado
+                            </div>
+                        </div>
+                        
+                        <div class="exercise-content">
+                            <div class="objective">
+                                <h4><i class="fas fa-bullseye"></i> Objetivo:</h4>
+                                <p>Criar desequilíbrio e explorar fraquezas.</p>
+                            </div>
+
+                            <div class="activity">
+                                <h4><i class="fas fa-gamepad"></i> Atividade:</h4>
+                                <p>Monte uma posição onde uma peça adversária precisa ser desviada para ganhar vantagem. Encontre o lance correto.</p>
+                            </div>
+
+                            <div class="evolution">
+                                <h4><i class="fas fa-chart-line"></i> Evolução:</h4>
+                                <p>Ensina a manipular a posição do adversário para criar oportunidades.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Exercício 9: Ataque Combinado -->
+                    <div class="exercise-card tactical-exercise">
+                        <div class="exercise-header">
+                            <h3><i class="fas fa-bolt"></i> 9. Ataque Combinado</h3>
+                            <div class="difficulty-badge avancado">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i> Avançado
+                            </div>
+                        </div>
+                        
+                        <div class="exercise-content">
+                            <div class="objective">
+                                <h4><i class="fas fa-bullseye"></i> Objetivo:</h4>
+                                <p>Planejar múltiplas ameaças ao mesmo tempo.</p>
+                            </div>
+
+                            <div class="activity">
+                                <h4><i class="fas fa-gamepad"></i> Atividade:</h4>
+                                <p>Posicione peças para criar uma sequência de lances que ameace mate ou ganho de material múltiplo.</p>
+                            </div>
+
+                            <div class="evolution">
+                                <h4><i class="fas fa-chart-line"></i> Evolução:</h4>
+                                <p>Desenvolve visão tática integrada, antecipação de respostas e coordenação entre peças.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Exercício 10: Sacrifício Planejado - COM TABULEIRO -->
+                    <div class="exercise-card tactical-exercise">
+                        <div class="exercise-header">
+                            <h3><i class="fas fa-chess-board"></i> 10. Sacrifício Posicional</h3>
+                            <div class="difficulty-badge avancado">
+                                <i class="fas fa-chess"></i> Com Tabuleiro
+                            </div>
+                        </div>
+                        
+                        <div class="exercise-content">
+                            <div class="puzzle-questions">
+                                <div class="objective">
+                                    <h4><i class="fas fa-bullseye"></i> Objetivo do Puzzle:</h4>
+                                    <p>As brancas podem sacrificar material para obter vantagem posicional decisiva. Encontre o sacrifício correto.</p>
+                                </div>
+
+                                <div class="puzzle-context">
+                                    <h4><i class="fas fa-history"></i> Contexto:</h4>
+                                    <p>Posição avançada onde ganho material não é tudo - às vezes a posição vale mais que as peças.</p>
+                                </div>
+
+                                <div class="analysis-suggestion">
+                                    <h4><i class="fas fa-lightbulb"></i> Dicas para Análise:</h4>
+                                    <ul>
+                                        <li><strong>Avalie compensação:</strong> O que você ganha perdendo material?</li>
+                                        <li><strong>Veja além do material:</strong> Controle, iniciativa, fraquezas</li>
+                                        <li><strong>Calcule consequências:</strong> A compensação é suficiente?</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="visual-board-section">
+                                <div class="board-header">
+                                    <h4><i class="fas fa-chess-board"></i> Posição para Análise</h4>
+                                    <div class="position-info">
+                                        <p><strong>Lado a jogar:</strong> Brancas</p>
+                                        <p><strong>FEN:</strong> r1bqk2r/pppp1ppp/2n2n2/2b1p3/2B1P3/3P1N2/PPP2PPP/RNBQ1RK1 w kq - 0 9</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="exercise-board-container">
+                                    <div id="exerciseConceito7-board" class="exercise-chess-board"></div>
+                                </div>
+                            </div>
+
+                            <div class="evolution">
+                                <h4><i class="fas fa-chart-line"></i> Solução e Evolução:</h4>
+                                <div class="solution-text">
+                                    <p><strong>Resposta:</strong> Bxf7+! Kxf7 Ng5+, sacrificando o bispo para exposição permanente do rei preto.</p>
+                                    <p><strong>Aprendizado:</strong> Desenvolve avaliação posicional e cálculo de compensação por material.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Exercício 11: Tática de Desvio - COM TABULEIRO -->
+                    <div class="exercise-card tactical-exercise">
+                        <div class="exercise-header">
+                            <h3><i class="fas fa-chess-board"></i> 11. Desvio Tático</h3>
+                            <div class="difficulty-badge avancado">
+                                <i class="fas fa-chess"></i> Com Tabuleiro
+                            </div>
+                        </div>
+                        
+                        <div class="exercise-content">
+                            <div class="puzzle-questions">
+                                <div class="objective">
+                                    <h4><i class="fas fa-bullseye"></i> Objetivo do Puzzle:</h4>
+                                    <p>Uma peça preta está defendendo um ponto crucial. Encontre como desviá-la de sua função defensiva.</p>
+                                </div>
+
+                                <div class="puzzle-context">
+                                    <h4><i class="fas fa-history"></i> Contexto:</h4>
+                                    <p>Posição onde a torre preta defende tanto o rei quanto material. O desvio é a chave para quebrar a defesa.</p>
+                                </div>
+
+                                <div class="analysis-suggestion">
+                                    <h4><i class="fas fa-lightbulb"></i> Dicas para Análise:</h4>
+                                    <ul>
+                                        <li><strong>Identifique a peça sobrecarregada:</strong> Que peça tem múltiplas funções?</li>
+                                        <li><strong>Force uma escolha:</strong> Como fazer a peça abandonar uma defesa?</li>
+                                        <li><strong>Explore a fraqueza:</strong> O que acontece quando a defesa falha?</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="visual-board-section">
+                                <div class="board-header">
+                                    <h4><i class="fas fa-chess-board"></i> Posição para Análise</h4>
+                                    <div class="position-info">
+                                        <p><strong>Lado a jogar:</strong> Brancas</p>
+                                        <p><strong>FEN:</strong> r3kb1r/pp3ppp/2n1pq2/3p4/2PP4/2N1P3/PP3PPP/R1BQ1RK1 w kq - 0 13</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="exercise-board-container">
+                                    <div id="exerciseConceito8-board" class="exercise-chess-board"></div>
+                                </div>
+                            </div>
+
+                            <div class="evolution">
+                                <h4><i class="fas fa-chart-line"></i> Solução e Evolução:</h4>
+                                <div class="solution-text">
+                                    <p><strong>Resposta:</strong> Qd5! A dama ataca múltiplas peças, forçando a torre a abandonar a defesa do cavalo.</p>
+                                    <p><strong>Aprendizado:</strong> Ensina a identificar peças sobrecarregadas e criar desvios táticos.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Exercício 12: Ataque Combinado - COM TABULEIRO -->
+                    <div class="exercise-card tactical-exercise">
+                        <div class="exercise-header">
+                            <h3><i class="fas fa-chess-board"></i> 12. Coordenação de Peças</h3>
+                            <div class="difficulty-badge avancado">
+                                <i class="fas fa-chess"></i> Com Tabuleiro
+                            </div>
+                        </div>
+                        
+                        <div class="exercise-content">
+                            <div class="puzzle-questions">
+                                <div class="objective">
+                                    <h4><i class="fas fa-bullseye"></i> Objetivo do Puzzle:</h4>
+                                    <p>As brancas podem coordenar todas suas peças para criar múltiplas ameaças simultâneas. Encontre o plano vencedor.</p>
+                                </div>
+
+                                <div class="puzzle-context">
+                                    <h4><i class="fas fa-history"></i> Contexto:</h4>
+                                    <p>Posição complexa onde dama, torres e peças menores devem trabalhar em harmonia perfeita.</p>
+                                </div>
+
+                                <div class="analysis-suggestion">
+                                    <h4><i class="fas fa-lightbulb"></i> Dicas para Análise:</h4>
+                                    <ul>
+                                        <li><strong>Coordene todas as peças:</strong> Como cada peça contribui para o ataque?</li>
+                                        <li><strong>Crie múltiplas ameaças:</strong> O adversário não pode defender tudo</li>
+                                        <li><strong>Timing perfeito:</strong> Qual é a sequência ideal de ameaças?</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="visual-board-section">
+                                <div class="board-header">
+                                    <h4><i class="fas fa-chess-board"></i> Posição para Análise</h4>
+                                    <div class="position-info">
+                                        <p><strong>Lado a jogar:</strong> Brancas</p>
+                                        <p><strong>FEN:</strong> r1bq1rk1/ppp2ppp/2np1n2/4p3/2PP4/2NQPN2/PP3PPP/R1B1K2R w KQ - 0 12</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="exercise-board-container">
+                                    <div id="exerciseConceito9-board" class="exercise-chess-board"></div>
+                                </div>
+                            </div>
+
+                            <div class="evolution">
+                                <h4><i class="fas fa-chart-line"></i> Solução e Evolução:</h4>
+                                <div class="solution-text">
+                                    <p><strong>Resposta:</strong> Qh3! seguido de Ng5, criando ameaças de mate em h7 e f7 simultaneamente.</p>
+                                    <p><strong>Aprendizado:</strong> Desenvolve visão tática integrada e coordenação de múltiplas peças.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Nível Mestre (10) -->
+            <div class="level-section mestre">
+                <div class="level-header">
+                    <h2><i class="fas fa-crown"></i> Nível Mestre (10)</h2>
+                    <p><strong>Objetivo:</strong> Consolidar todas as habilidades táticas, estratégicas e de cálculo em um exercício desafiador.</p>
+                </div>
+
+                <div class="exercises-grid single-exercise">
+                    <!-- Exercício 10: Mate em 3/4 Lances com Obstáculos -->
+                    <div class="exercise-card tactical-exercise master-level">
+                        <div class="exercise-header">
+                            <h3><i class="fas fa-crown"></i> 10. Mate em 3/4 Lances com Obstáculos</h3>
+                            <div class="difficulty-badge mestre">
+                                <i class="fas fa-crown"></i> Mestre
+                            </div>
+                        </div>
+                        
+                        <div class="exercise-content">
+                            <div class="objective">
+                                <h4><i class="fas fa-bullseye"></i> Objetivo:</h4>
+                                <p>Combinar cálculo, planejamento e criatividade.</p>
+                            </div>
+
+                            <div class="activity">
+                                <h4><i class="fas fa-gamepad"></i> Atividade:</h4>
+                                <p>Crie uma posição complexa onde você deve dar mate em 3 ou 4 lances, enfrentando peças que defendem parcialmente o rei.</p>
+                            </div>
+
+                            <div class="evolution">
+                                <h4><i class="fas fa-chart-line"></i> Evolução:</h4>
+                                <p>Testa percepção, paciência, antecipação e execução de táticas avançadas sob pressão.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Desafio Especial: In the Shadows -->
+            <div class="level-section shadows-special">
+                <div class="level-header special-header">
+                    <h2><i class="fas fa-mask"></i> Desafio Especial: "In the Shadows"</h2>
+                    <p><strong>Objetivo:</strong> Jogadas que poderiam acontecer em partidas reais usando a estratégia "In the Shadows".</p>
+                </div>
+
+                <div class="exercises-grid single-exercise">
+                    <!-- Desafio In the Shadows -->
+                    <div class="exercise-card shadows-exercise">
+                        <div class="exercise-header">
+                            <h3><i class="fas fa-mask"></i> Desafio: Torre Fantasma</h3>
+                            <div class="difficulty-badge shadows">
+                                <i class="fas fa-mask"></i> In the Shadows
+                            </div>
+                        </div>
+                        
+                        <div class="exercise-content">
+                            <div class="realistic-scenario">
+                                <h4><i class="fas fa-chess-board"></i> Cenário Realístico:</h4>
+                                <p><strong>Partida base:</strong> Inspirado em Kasparov vs Kramnik (Londres 2000)</p>
+                                <p><strong>Contexto:</strong> Meio-jogo complexo onde as brancas têm uma torre aparentemente "morta" em a1 há 15 lances.</p>
+                            </div>
+
+                            <div class="shadows-objective">
+                                <h4><i class="fas fa-bullseye"></i> Objetivo "In the Shadows":</h4>
+                                <p>Encontrar o momento exato para ativar a torre "fantasma" que o adversário esqueceu completamente, criando ameaça decisiva.</p>
+                            </div>
+
+                            <div class="position-setup">
+                                <h4><i class="fas fa-chess-board"></i> Posição Atual (FEN):</h4>
+                                <div class="fen-notation">
+                                    <code>r3kb1r/pp2nppp/2p1p3/q7/3P1B2/2N1PN2/PPP2PPP/R2QK2R w KQkq - 0 12</code>
+                                </div>
+                                <p><em>Torre branca em a1 não se moveu desde o início. Adversário focado no centro e kingside.</em></p>
+                            </div>
+
+                            <div class="shadows-strategy">
+                                <h4><i class="fas fa-mask"></i> Estratégia "In the Shadows":</h4>
+                                <ul>
+                                    <li><strong>Fase 1:</strong> Torre permanece "invisível" enquanto desenvolve outras peças</li>
+                                    <li><strong>Fase 2:</strong> Adversário se compromete com ataque no kingside</li>
+                                    <li><strong>Fase 3:</strong> UM movimento da torre decide a partida instantaneamente</li>
+                                    <li><strong>Resultado:</strong> Torre que parecia inútil por 15 lances vira o jogo</li>
+                                </ul>
+                            </div>
+
+                            <div class="shadows-challenge">
+                                <div class="challenge-text">
+                                    <i class="fas fa-mask"></i>
+                                    <strong>Desafio:</strong> Identifique o LANCE EXATO onde a torre "fantasma" sai das sombras e muda o destino da partida.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Botão de volta -->
+        <div class="return-navigation">
+            <a href="{{ url_for('conceitos') }}" class="btn btn-primary btn-lg">
+                <i class="fas fa-book"></i> Voltar aos Conceitos
+            </a>
+        </div>
+    </div>
+</div>
+
+<style>
+.progression-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 0;
+}
+
+.level-section {
+    margin-bottom: 4rem;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.level-section.iniciante {
+    background: linear-gradient(135deg, rgba(76, 175, 80, 0.1), rgba(40, 40, 40, 0.1));
+    border: 2px solid rgba(76, 175, 80, 0.3);
+}
+
+.level-section.intermediario {
+    background: linear-gradient(135deg, rgba(255, 193, 7, 0.1), rgba(40, 40, 40, 0.1));
+    border: 2px solid rgba(255, 193, 7, 0.3);
+}
+
+.level-section.avancado {
+    background: linear-gradient(135deg, rgba(255, 87, 34, 0.1), rgba(40, 40, 40, 0.1));
+    border: 2px solid rgba(255, 87, 34, 0.3);
+}
+
+.level-section.mestre {
+    background: linear-gradient(135deg, rgba(156, 39, 176, 0.1), rgba(40, 40, 40, 0.1));
+    border: 2px solid rgba(156, 39, 176, 0.3);
+}
+
+.level-section.shadows-special {
+    background: linear-gradient(135deg, rgba(220, 53, 69, 0.1), rgba(0, 0, 0, 0.2));
+    border: 2px solid rgba(220, 53, 69, 0.5);
+    box-shadow: 0 0 30px rgba(220, 53, 69, 0.3);
+}
+
+.level-header {
+    padding: 2rem;
+    text-align: center;
+}
+
+.level-header.special-header {
+    background: linear-gradient(135deg, rgba(220, 53, 69, 0.8), rgba(180, 40, 50, 0.8));
+}
+
+.level-header h2 {
+    color: #dc3545;
+    font-size: 2em;
+    margin-bottom: 1rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.level-header.special-header h2 {
+    color: white;
+}
+
+.level-header p {
+    color: #ccc;
+    font-size: 1.1em;
+    line-height: 1.5;
+}
+
+.exercises-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+    padding: 2rem;
+}
+
+.exercises-grid.single-exercise {
+    grid-template-columns: 1fr;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.exercise-card {
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.8), rgba(40, 40, 40, 0.8));
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+}
+
+.exercise-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+}
+
+.exercise-card.shadows-exercise {
+    border: 2px solid rgba(220, 53, 69, 0.5);
+    box-shadow: 0 0 20px rgba(220, 53, 69, 0.3);
+}
+
+.exercise-header {
+    padding: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.exercise-header h3 {
+    color: white;
+    margin: 0;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.difficulty-badge {
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 0.9em;
+    border: 2px solid transparent;
+}
+
+.difficulty-badge.iniciante {
+    background: linear-gradient(135deg, rgba(76, 175, 80, 0.8), rgba(56, 142, 60, 0.8));
+    color: white;
+    border-color: rgba(76, 175, 80, 0.5);
+}
+
+.difficulty-badge.intermediario {
+    background: linear-gradient(135deg, rgba(255, 193, 7, 0.8), rgba(245, 124, 0, 0.8));
+    color: black;
+    border-color: rgba(255, 193, 7, 0.5);
+}
+
+.difficulty-badge.avancado {
+    background: linear-gradient(135deg, rgba(255, 87, 34, 0.8), rgba(230, 74, 25, 0.8));
+    color: white;
+    border-color: rgba(255, 87, 34, 0.5);
+}
+
+.difficulty-badge.mestre {
+    background: linear-gradient(135deg, rgba(156, 39, 176, 0.8), rgba(123, 31, 162, 0.8));
+    color: white;
+    border-color: rgba(156, 39, 176, 0.5);
+}
+
+.difficulty-badge.shadows {
+    background: linear-gradient(135deg, rgba(220, 53, 69, 0.8), rgba(180, 40, 50, 0.8));
+    color: white;
+    border-color: rgba(220, 53, 69, 0.5);
+    animation: shadowPulse 2s infinite;
+}
+
+@keyframes shadowPulse {
+    0%, 100% { box-shadow: 0 0 10px rgba(220, 53, 69, 0.5); }
+    50% { box-shadow: 0 0 20px rgba(220, 53, 69, 0.8); }
+}
+
+.exercise-content {
+    padding: 2rem;
+}
+
+.exercise-content h4 {
+    color: #dc3545;
+    margin: 1.5rem 0 0.8rem 0;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.exercise-content h4:first-child {
+    margin-top: 0;
+}
+
+.exercise-content p {
+    color: #e0e0e0;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+}
+
+.fen-notation {
+    background: rgba(0, 0, 0, 0.6);
+    border: 1px solid #444;
+    border-radius: 8px;
+    padding: 1rem;
+    margin: 1rem 0;
+    font-family: 'Courier New', monospace;
+}
+
+.fen-notation code {
+    color: #00ff88;
+    font-size: 1em;
+    word-break: break-all;
+}
+
+.shadows-strategy ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.shadows-strategy li {
+    background: rgba(220, 53, 69, 0.1);
+    border-left: 3px solid #dc3545;
+    padding: 0.8rem 1rem;
+    margin-bottom: 0.8rem;
+    border-radius: 0 8px 8px 0;
+}
+
+.shadows-challenge {
+    background: linear-gradient(135deg, rgba(220, 53, 69, 0.2), rgba(180, 40, 50, 0.2));
+    border: 2px solid rgba(220, 53, 69, 0.4);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-top: 2rem;
+    text-align: center;
+}
+
+.challenge-text {
+    color: #dc3545;
+    font-size: 1.1em;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+}
+
+.challenge-text i {
+    font-size: 1.3em;
+    animation: pulse 2s infinite;
+}
+
+.back-navigation, .return-navigation {
+    text-align: center;
+    margin: 2rem 0;
+}
+
+.back-navigation .btn, .return-navigation .btn {
+    background: linear-gradient(135deg, #dc3545, #b02e3a);
+    border: none;
+    padding: 1rem 2rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+}
+
+.back-navigation .btn:hover, .return-navigation .btn:hover {
+    background: linear-gradient(135deg, #b02e3a, #8e252e);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(220, 53, 69, 0.4);
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 3rem;
+    padding: 2rem;
+    background: linear-gradient(135deg, rgba(220, 53, 69, 0.1), rgba(40, 40, 40, 0.1));
+    border-radius: 15px;
+    border: 1px solid rgba(220, 53, 69, 0.2);
+}
+
+.section-header h1 {
+    color: #dc3545;
+    font-size: 2.5em;
+    margin-bottom: 1rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.section-header p {
+    color: #ccc;
+    font-size: 1.2em;
+    line-height: 1.5;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .exercises-grid {
+        grid-template-columns: 1fr;
+        padding: 1rem;
+    }
+    
+    .exercise-header {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+    }
+    
+    .exercise-content {
+        padding: 1rem;
+    }
+    
+    .challenge-text {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .section-header h1 {
+        font-size: 2em;
+    }
+    
+    .level-header h2 {
+        font-size: 1.5em;
+    }
+}
+</style>
+
+<script>
+// Inicialização dos exercícios com tabuleiros
+document.addEventListener('DOMContentLoaded', function() {
+    // Exercícios Iniciantes com Tabuleiros
+    createExerciseBoard('exerciseConceito1-board', 'r1bqk2r/pppp1npp/2n5/2b1p3/2B1P3/3P1N2/PPP2PPP/RNBQK2R w KQkq - 0 8');
+    createExerciseBoard('exerciseConceito2-board', 'r1bqr1k1/pppp1ppp/2n2n2/2b1p3/4N3/2NP1B2/PPP1PPPP/R2QKB1R w KQ - 0 9');
+    createExerciseBoard('exerciseConceito3-board', 'r3k2r/ppp2ppp/2n1pn2/2bp4/2PP4/2N2N2/PP2PPPP/R1B1K2R w KQkq - 0 10');
+    
+    // Exercícios Intermediários com Tabuleiros
+    createExerciseBoard('exerciseConceito4-board', 'r2q1rk1/ppp2ppp/2n1bn2/2bpp3/2PP4/2NBPN2/PP3PPP/R1BQ1RK1 w - - 0 12');
+    createExerciseBoard('exerciseConceito5-board', 'r1bq1rk1/pppp1ppp/2n5/2b1p2n/2B1P3/3P1N2/PPP2PPP/RNBQR1K1 w - - 0 10');
+    createExerciseBoard('exerciseConceito6-board', 'r1bq1rk1/ppp2ppp/2np1n2/2b1p3/2BPP3/2N2N2/PPP2PPP/R1BQR1K1 w - - 0 11');
+    
+    // Exercícios Avançados com Tabuleiros
+    createExerciseBoard('exerciseConceito7-board', 'r1bqk2r/pppp1ppp/2n2n2/2b1p3/2B1P3/3P1N2/PPP2PPP/RNBQ1RK1 w kq - 0 9');
+    createExerciseBoard('exerciseConceito8-board', 'r3kb1r/pp3ppp/2n1pq2/3p4/2PP4/2N1P3/PP3PPP/R1BQ1RK1 w kq - 0 13');
+    createExerciseBoard('exerciseConceito9-board', 'r1bq1rk1/ppp2ppp/2np1n2/4p3/2PP4/2NQPN2/PP3PPP/R1B1K2R w KQ - 0 12');
+});
+</script>
+
+{% endblock %}

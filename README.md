@@ -1,2 +1,2 @@
-# shadowschess
-aprende a joga e oque ninguém vai te ensina esta bem aqui, tente a sorte?
+# In-the-shadow
+Site para melhora sua jogabilidade no jogo de xadrex!!!
